@@ -24,13 +24,13 @@ private:
 	int TBS;    // Time Betweeen Stations
 	Queue<Buses*>Qbus;
 	/*_LINKEDLIST<Stations*>LS;*/
-	PriorityQueue<Passengers*> StpassengersFW;
-	PriorityQueue<Passengers*> NtpassengersFW;
-	PriorityQueue<Passengers*> WCpassengersFW;
+	PriorityQueue<Passengers*> StpassengersFW; //adym
+	PriorityQueue<Passengers*> NtpassengersFW; //adym
+	PriorityQueue<Passengers*> WCpassengersFW; //adym
 
-	PriorityQueue<Passengers*> StpassengersBW;
-	PriorityQueue<Passengers*> NtpassengersBW;
-	PriorityQueue<Passengers*> WCpassengersBW;
+	PriorityQueue<Passengers*> StpassengersBW; //adym
+	PriorityQueue<Passengers*> NtpassengersBW; //adym
+	PriorityQueue<Passengers*> WCpassengersBW; //adym
 
 	// Passengers waiting lists
 	PriorityQueue<Passengers*> WSPFW;

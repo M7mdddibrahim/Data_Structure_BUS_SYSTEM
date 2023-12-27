@@ -19,7 +19,7 @@ private:
 
 public:
 	Passengers();
-	/*Passengers(char spTyp, char T, int AT, int SS, int ES, int OnOffTime, int Prio)
+	Passengers(string spTyp, string T, int AT, int SS, int ES, int OnOffTime, int Prio)
 	{
 		setSPtyp(spTyp);
 		setTyp(T);
@@ -29,14 +29,14 @@ public:
 		setOn_OffTime(OnOffTime);
 		setPrio(Prio);
 	}
-	Passengers(char T, int AT, int SS, int ES, int OnOffTime)
+	Passengers(string T, int AT, int SS, int ES, int OnOffTime)
 	{
 		setTyp(T);
 		setAT(AT);
 		setSStaion(SS);
 		setEStaion(ES);
 		setOn_OffTime(OnOffTime);
-	}*/
+	}
 	void setID(int id);
 	void setSPtyp(string spTyp);
 	void setTyp(string T);

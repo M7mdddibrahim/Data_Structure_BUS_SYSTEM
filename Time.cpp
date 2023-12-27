@@ -23,7 +23,6 @@ void Time::MoveTime(int mm)
 	if (min >= 60) {   //uptade minutes and hours
 		hours = hours + (min / 60);
 		min = min - ((min / 60) * 60);
-
 	}
 
 

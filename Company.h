@@ -73,6 +73,7 @@ public:
 	void simulation();
 	void timeIncremeter();
 	bool Leave_List(List<Passengers>current);
+	void addPassenger(Passengers* P);
 	bool Leave_Passenger(int id);
 	void randomleave(List<Passengers> NPF, List<Passengers> NPB, List<Passengers> WPF, List<Passengers> WPB, List<Passengers> SPF, List<Passengers> SPB);
 	void Next_station();
