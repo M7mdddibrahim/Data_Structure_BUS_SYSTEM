@@ -1,10 +1,13 @@
 #pragma once
 #include "Queue.h"
+#include "Passengers.h"
 template <class T>
 class NPQ : public Queue<T>
 {
 private:
     bool flag;
+    int id;
+    Passengers p;
 public:
     NPQ()
     {
@@ -13,25 +16,26 @@ public:
     {
     }
 
-  /*  bool Station::removePassengerByID(Queue<Passengers*>& p, int id)
+    // Remove passenger from a generic queue using ID
+    bool removePassengerUsingID(Queue<Passengers*>& p, int id)
     {
         bool flag = false;
-        Queue<Passengers*> temp;
+
+        Queue<Passengers*>temp;
         Passengers* x = nullptr;
-        while (!p.isempty()) {
-            p.dequeue(x);
+        while (!p.IsEmpty()) {
+            p.Dequeue(x);
             if (x->getID() != id) {
-                temp.enqueue(x);
+                temp.Enqueue(x);
             }
             flag = x->getID() == id;
         }
-        while (!temp.isempty()) {
-            temp.dequeue(x);
-            p.enqueue(x);
+        while (!temp.IsEmpty()) {
+            temp.Dequeue(x);
+            p.Enqueue(x);
         }
         return flag;
-    }*/
-
+    }
 
 
 

@@ -79,6 +79,10 @@ bool Company::Leave_List(List<Passengers>current)
 	}
 	return false;
 }
+void Company::addPassenger(Passengers* P)
+{
+	stationArray[P->getSStaion()].AddPassengers(P);
+}
 bool Company::Leave_Passenger(int id)
 {
 	Passengers P;
