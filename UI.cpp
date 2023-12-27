@@ -138,7 +138,7 @@ void UI::PrintFinishedPass(List<Passengers> Finishing_list)
 	cout << endl;
 	cout << "Press any key to display next station" << endl;
 	int getch();
-	Sleep(10000);
+	
 
 
 }
