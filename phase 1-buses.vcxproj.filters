@@ -63,6 +63,9 @@
     <ClInclude Include="Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NPQ.h">
+      <Filter>Resource Files\Data_structure</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Company.cpp">

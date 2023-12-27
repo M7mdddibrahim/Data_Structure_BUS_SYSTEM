@@ -133,6 +133,7 @@
     <ClInclude Include="DEFS.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="LeaveEvent.h" />
+    <ClInclude Include="NPQ.h" />
     <ClInclude Include="PQnode.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="List.h" />

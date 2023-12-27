@@ -6,6 +6,7 @@
 #include <chrono>
 #include <thread>
 #include <string>
+#include "PriorityQueue.h"
 using namespace std;
 
 
@@ -30,6 +31,8 @@ private:
 	//Passengers TDC; // Total Passengers Transported by the Bus
 	//Time TBT; // Total Busy Time for this Bus
 	//Time TSIM; // Total Simulation Time
+	PriorityQueue<Passengers> MBus;
+	PriorityQueue<Passengers> WBus;
 
 public:
 	Buses()

@@ -19,6 +19,7 @@
 #include<cstdlib>
 using namespace std;
 
+constexpr auto MaxStations = 100;
 
 class Company
 {
@@ -37,14 +38,31 @@ class Company
 	int LTime;
 	int hour;
 	int min, current_station;
-	List<Passengers> NPF;
-	List<Passengers> NPB;
-	List<Passengers> WPF;
-	List<Passengers> WPB;
-	List<Passengers> SPF;
-	List<Passengers> SPB;
-	List<Passengers> Finishing_list;
+	List<Passengers> NPF;// adyma
+	List<Passengers> NPB;// adyma
+	List<Passengers> WPF;// adyma
+	List<Passengers> WPB;// adyma
+	List<Passengers> SPF;// adyma
+	List<Passengers> SPB;// adyma
+	List<Passengers> Finishing_list;// adyma
 
+	// new lists starts from here 
+	Queue<Event*> EventList;
+	Stations stationArray[MaxStations];
+
+	Queue<Passengers> Completed; // passengers completed list
+
+	Queue<Buses> MBCheckup;
+	Queue<Buses> WBCheckup;
+
+	Queue<Buses> MBMovingFW;
+	Queue<Buses> MBMovingBW;
+
+	Queue<Buses> WBMovingFW;
+	Queue<Buses> WBMovingBW;
+
+	Queue<Buses> MGB; // mixed buses at garage (Station Zero)
+	Queue<Buses> WGB; // wheel buses at garage (Station Zero)
 
 public:
 	

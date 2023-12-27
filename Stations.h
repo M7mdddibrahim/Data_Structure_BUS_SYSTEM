@@ -5,6 +5,7 @@
 #include "Queue.h"
 #include "List.h"
 #include <string>
+#include "NPQ.h"
 #include <iostream>
 using namespace std;
 
@@ -30,6 +31,20 @@ private:
 	PriorityQueue<Passengers*> StpassengersBW;
 	PriorityQueue<Passengers*> NtpassengersBW;
 	PriorityQueue<Passengers*> WCpassengersBW;
+
+	// Passengers waiting lists
+	PriorityQueue<Passengers*> WSPFW;
+	PriorityQueue<Passengers*> WSPBW;
+
+	Queue<Passengers*> WWPFW;
+	Queue<Passengers*> WWPBW;
+
+	NPQ<Passengers*> WNPFW;
+	NPQ<Passengers*> WNPBW;
+
+	// Buses Waiting at Stations
+	Queue<Buses*> FWBusList;
+	Queue<Buses*> BWBusList;
 
 public:
 	Stations();
