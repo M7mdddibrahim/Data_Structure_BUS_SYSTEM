@@ -138,7 +138,7 @@ public:
 		}
 	}*/
 
-	/*void insertEnd(const T& item)
+	void insertEnd(const T& item)
 	{
 		Node<T>* temp = head;
 		while (temp->getNext() != nullptr)
