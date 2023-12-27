@@ -1,39 +1,7 @@
 ﻿  Company.cpp
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): warning C4138: '*/' found outside of comment
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): error C2059: syntax error: '*'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,2): message : see reference to class template instantiation 'List<T>' being compiled
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2143: syntax error: missing ';' before '}'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2238: unexpected token(s) preceding ';'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209): error C2238: unexpected token(s) preceding ';'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209): fatal  error C1201: unable to continue after syntax error in class template definition
   Event.cpp
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): warning C4138: '*/' found outside of comment
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): error C2059: syntax error: '*'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,2): message : see reference to class template instantiation 'List<T>' being compiled
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2143: syntax error: missing ';' before '}'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2238: unexpected token(s) preceding ';'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209): error C2238: unexpected token(s) preceding ';'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209): fatal  error C1201: unable to continue after syntax error in class template definition
   Main.cpp
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): warning C4138: '*/' found outside of comment
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): error C2059: syntax error: '*'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,2): message : see reference to class template instantiation 'List<T>' being compiled
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2143: syntax error: missing ';' before '}'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2238: unexpected token(s) preceding ';'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209): error C2238: unexpected token(s) preceding ';'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209): fatal  error C1201: unable to continue after syntax error in class template definition
   Stations.cpp
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): warning C4138: '*/' found outside of comment
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): error C2059: syntax error: '*'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,2): message : see reference to class template instantiation 'List<T>' being compiled
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2143: syntax error: missing ';' before '}'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2238: unexpected token(s) preceding ';'
   UI.cpp
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): warning C4138: '*/' found outside of comment
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(152,3): error C2059: syntax error: '*'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,2): message : see reference to class template instantiation 'List<T>' being compiled
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2143: syntax error: missing ';' before '}'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209,1): error C2238: unexpected token(s) preceding ';'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209): error C2238: unexpected token(s) preceding ';'
-C:\Users\LENOVO.SXM8\Desktop\Data_Structure_BUS_SYSTEM\List.h(209): fatal  error C1201: unable to continue after syntax error in class template definition
   Generating Code...
+  phase 1-buses.vcxproj -> D:\College\College Year 3 (Junior)\Data Structure\Data_Structure_BUS_SYSTEM\x64\Debug\phase 1-buses.exe

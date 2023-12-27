@@ -19,6 +19,7 @@
 #include<cstdlib>
 using namespace std;
 
+class Event;
 constexpr auto MaxStations = 100;
 
 class Company
@@ -50,19 +51,19 @@ class Company
 	Queue<Event*> EventList;
 	Stations stationArray[MaxStations];
 
-	Queue<Passengers> Completed; // passengers completed list
+	Queue<Passengers*> Completed; // passengers completed list
 
-	Queue<Buses> MBCheckup;
-	Queue<Buses> WBCheckup;
+	Queue<Buses*> MBCheckup;
+	Queue<Buses*> WBCheckup;
 
-	Queue<Buses> MBMovingFW;
-	Queue<Buses> MBMovingBW;
+	Queue<Buses*> MBMovingFW;
+	Queue<Buses*> MBMovingBW;
 
-	Queue<Buses> WBMovingFW;
-	Queue<Buses> WBMovingBW;
+	Queue<Buses*> WBMovingFW;
+	Queue<Buses*> WBMovingBW;
 
-	Queue<Buses> MGB; // mixed buses at garage (Station Zero)
-	Queue<Buses> WGB; // wheel buses at garage (Station Zero)
+	Queue<Buses*> MGB; // mixed buses at garage (Station Zero)
+	Queue<Buses*> WGB; // wheel buses at garage (Station Zero)
 
 public:
 	

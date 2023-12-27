@@ -4,10 +4,14 @@ template <class T>
 class NPQ : public Queue<T>
 {
 private:
-    bool flag 
+    bool flag;
 public:
-	NPQ();
-	~NPQ();
+    NPQ()
+    {
+    }
+	~NPQ()
+    {
+    }
 
   /*  bool Station::removePassengerByID(Queue<Passengers*>& p, int id)
     {
