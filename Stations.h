@@ -39,8 +39,8 @@ private:
 	Queue<Passengers*> WWPFW;
 	Queue<Passengers*> WWPBW;
 
-	NPQ<Passengers*> WNPFW;
-	NPQ<Passengers*> WNPBW;
+	//NPQ<Passengers*> WNPFW;
+	//NPQ<Passengers*> WNPBW;
 
 	// Buses Waiting at Stations
 	Queue<Buses*> FWBusList;

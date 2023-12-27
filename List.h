@@ -149,7 +149,7 @@ public:
 		node1->getItem() = item;
 		temp->getNext() = node1;
 		node1->getNext() = nullptr;
-	}*/
+	}
 
 	/*Node* GetNode(T& p)
 	{
