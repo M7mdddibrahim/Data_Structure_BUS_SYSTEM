@@ -140,6 +140,7 @@
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stations.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +150,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Passengers.cpp" />
     <ClCompile Include="Stations.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
