@@ -24,6 +24,10 @@ Stations::Stations(string loc, int Stid, int Stationsnum, int TS)
 	setLocation(loc);
 	setStationsnumber(Stationsnum);*/
 }
+Stations::Stations(int Stationsnum)
+{
+	numofstations = Stationsnum;
+}
 void Stations::AddPassengers(Passengers* P)
 {
 	if (P->getTyp() == "SP")
@@ -33,7 +37,6 @@ void Stations::AddPassengers(Passengers* P)
 		else
 			WSPBW.Enqueue(P, P->getPrio());
 	}
-<<<<<<< Updated upstream
 	else if (P->getTyp() == "NP")
 	{
 		if (P->getEStaion() > P->getSStaion())
@@ -48,7 +51,7 @@ void Stations::AddPassengers(Passengers* P)
 		else
 			WWPBW.Enqueue(P);
 	}
-=======
+}
 //void Stations::AddPassengers(Passengers* P)
 //{
 //	if (getSStaion() < getEStaion())
@@ -89,11 +92,6 @@ void Stations::AddPassengers(Passengers* P)
 //	}
 //}
 
-Stations::Stations(int Stationum)
-{
-	numofstations = Stationum;
->>>>>>> Stashed changes
-}
 void Stations::setLocation(string loc)
 {
 	StationLocation = loc;

@@ -16,6 +16,12 @@ public:
 		Data = newitem;
 		Next = nullptr;
 	}
+	Node(T newitem, int P) // Non-Default Constructor
+	{
+		Data = newitem;
+		Next = nullptr;
+		Priority = P;
+	}
 	void SetData(T newitem)
 	{
 		Data = newitem;

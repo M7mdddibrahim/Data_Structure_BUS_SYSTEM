@@ -26,13 +26,10 @@ protected:
 
 public:
     Event();
-<<<<<<< Updated upstream
     void  set_Event_type(char e);
     char get_EventType();
     virtual void excute(Company* C) = 0;
     int convertToTimeStep(int hours, int minutes);
-=======
-    virtual void excute(Company* C) = 0;
     /*int convertToTimeStep(int hours, int minutes);
 >>>>>>> Stashed changes
     int main();

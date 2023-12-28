@@ -79,15 +79,13 @@ bool Company::Leave_List(List<Passengers>current)
 	}
 	return false;
 }
-<<<<<<< Updated upstream
 void Company::addPassenger(Passengers* P)
 {
 	stationArray[P->getSStaion()].AddPassengers(P);
 }
-bool Company::Leave_Passenger(int id)
-=======
+//bool Company::Leave_Passenger(int id)
+
 void Company::Leave_Passenger(int STARTS, int id)
->>>>>>> Stashed changes
 {
 	if (stationArray[STARTS].RemovePassenger(stationArray[STARTS].getNormalPF(), id))
 	{
