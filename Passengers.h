@@ -29,6 +29,7 @@ public:
 		setOn_OffTime(OnOffTime);
 		setPrio(Prio);
 	}
+
 	Passengers(string T, int AT, int SS, int ES, int OnOffTime)
 	{
 		setTyp(T);
@@ -37,6 +38,7 @@ public:
 		setEStaion(ES);
 		setOn_OffTime(OnOffTime);
 	}
+
 	void setID(int id);
 	void setSPtyp(string spTyp);
 	void setTyp(string T);

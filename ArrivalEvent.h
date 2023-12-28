@@ -7,39 +7,43 @@ using namespace std;
 class ArrivalEvent : public Event
 {
 protected:
-	int A; //denoted an arrival event
-	int TYP; //is the passenger type(SP / WP / NP) For SP, an extra word is added at the end of the line to show if the passenger is aged, POD, Pregnant
-	int END; // start station
+/*	int A;*/ //denoted an arrival event
+	string TYP; //is the passenger type(SP / WP / NP) For SP, an extra word is added at the end of the line to show if the passenger is aged, POD, Pregnant
+	int ENDS; // END station
+	string SPTYP;
+	int ON_OFFT;
 
 public:
-	 ArrivalEvent(Time time, string SPTyp, string Typ, int SStation, int EStation, int ET, int ID_pass)
+	 ArrivalEvent(Time time, string SPTyp, string Typ, int SStation, int EStation, Time ET, int ID_pass)
 	{
-		specialP = SPTyp;
-		Type = Typ;
-		STRTStation = SStation;
-		ENDstation = EStation;
-		TimeStamp = ET;
+		SPTYP = SPTyp;
+		TYP = Typ;
+		STARTS = SStation;
+		ENDS = EStation;
+		time.SetHours(ET.getHours());
+		time.SetMin(ET.getMin());
 		ID = ID_pass;
 	}
-	ArrivalEvent(string Typ, int SStation, int EStation, int ET, int ID_pass)
+	ArrivalEvent(string Typ, int SStation, int EStation, Time ET, int ID_pass)
 	{
-		Type = Typ;
-		STRTStation = SStation;
-		ENDstation = EStation;
-		TimeStamp = ET;
+		TYP = Typ;
+		STARTS = SStation;
+		ENDS = EStation;
+		time.SetHours(ET.getHours());
+		time.SetMin(ET.getMin());
 		ID = ID_pass;
 	}
 
 	bool isSPEmpty()
 	{
-		return specialP.empty();
+		return SPTYP.empty();
 	}
 
 	void excute(Company* C)
 	{
 		if (isSPEmpty())
 		{
-			Passengers* P = new Passengers(Type, STRTStation, ENDstation, TimeStamp, ID);
+			Passengers* P = new Passengers(TYP, STARTS, ENDS, time, ID);
 			C->addPassenger(P);
 		}
 		/*else

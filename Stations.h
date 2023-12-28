@@ -23,6 +23,18 @@ private:
 	int BusId;
 	int TBS;    // Time Betweeen Stations
 	Queue<Buses*>Qbus;
+
+	//// Lists to store the forward and backward passengers
+	//List<Passengers*> NPF;      
+	//List<Passengers*> NPB;
+	//List<Passengers*> WPF;
+	//List<Passengers*> WPB;
+
+	//// priority queues of forward and backward Special Passengers
+	//PriorityQueue<Passengers*> SPF;
+	//PriorityQueue<Passengers*> SPB;
+
+
 	/*_LINKEDLIST<Stations*>LS;*/
 	PriorityQueue<Passengers*> StpassengersFW; //adym
 	PriorityQueue<Passengers*> NtpassengersFW; //adym
@@ -39,8 +51,8 @@ private:
 	Queue<Passengers*> WWPFW;
 	Queue<Passengers*> WWPBW;
 
-	NPQ<Passengers*> WNPFW;
-	NPQ<Passengers*> WNPBW;
+	Queue<Passengers*> WNPFW;
+	Queue<Passengers*> WNPBW;
 
 	// Buses Waiting at Stations
 	Queue<Buses*> FWBusList;
@@ -49,16 +61,28 @@ private:
 public:
 	Stations();
 	Stations(string loc, int Stid, int Stationsnum, int TS);
-	void AddPassengers(Passengers* P);
+	Stations(int Stationsnum);
+	// Setters
 	void setStationid(int Stid);
 	void setLocation(string loc);
 	void setStationsnumber(int Stationsnum);
 	void SetTimeBetweenSta(int time);
+
+	// Getters
 	int getStationID();
 	int getStationsnumber();
 	int getTimeBetweenSta();
 
+	Queue<Passengers*> getNormalPF();
+	Queue<Passengers*> getNormalPB();
+	Queue<Passengers*> getWheelPF();
+	Queue<Passengers*> getWheelPB();
+	PriorityQueue<Passengers*> getSpecialPF();
+	PriorityQueue<Passengers*> getSpecialPB();
 
+	// Functions
+	void AddPassengers(Passengers* P);
+	bool RemovePassenger(Queue<Passengers*> p, int id);
 };
 	//bool CheckFulljourney();   // checks if the bus complete the journey or not
 	//bool CheckCapacity(MaxStationCapacity);    // checks if the stations has reached its full capacity or not 
