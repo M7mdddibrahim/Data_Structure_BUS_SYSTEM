@@ -202,7 +202,7 @@ public:
 	//	return (BusUtil * 100);
 	//}
 
-	void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses) {
+	/*void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses) {
 
 		while (true) {
 			// Get the current time
@@ -236,7 +236,7 @@ public:
 
 			// Delay for 1 second before checking the time again
 			std::this_thread::sleep_for(std::chrono::seconds(1));
-		}
+		}*/
 	
 	
 

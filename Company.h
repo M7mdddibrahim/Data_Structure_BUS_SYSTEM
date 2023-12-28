@@ -75,5 +75,5 @@ public:
 	void randomleave(List<Passengers> NPF, List<Passengers> NPB, List<Passengers> WPF, List<Passengers> WPB, List<Passengers> SPF, List<Passengers> SPB);
 	void Next_station();
 	int timeConverter(ifstream& inputFile);
-
+	void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses);
 };

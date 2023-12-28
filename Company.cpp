@@ -180,6 +180,47 @@ int Company::timeConverter(ifstream& input)
 	return min;
 }
 
+void Company::releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses)
+{
+
+	while (true) {
+		// Get the current time
+		auto currentTime = std::chrono::system_clock::now();
+
+		// Extract minutes from the current time
+		auto minutes = std::chrono::duration_cast<std::chrono::minutes>(currentTime.time_since_epoch()).count() % 60;
+
+		// Check if it's been 15 minutes since the last bus release
+		if (minutes % 15 == 0) {
+			// Print the bus release message
+			auto hours = std::chrono::duration_cast<std::chrono::hours>(currentTime.time_since_epoch()).count() % 24;
+			std::cout << "Bus released from Station #0 at " << hours << ":" << minutes << std::endl;
+
+			if (stationZero.IsEmpty()) {
+				cout << "No buses available at station zero." << endl;
+				return;
+			}
+
+			int busNumber;
+			stationZero.Dequeue(busNumber);  // Remove the first bus from the queue
+			buses.insertNode(busNumber);     // Add the released bus to the list
+
+			cout << "Bus " << busNumber << " released from station zero and added to buses list." << endl;
+		}
+
+		// Delay for 1 second
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
+
+	// Delay for 1 second before checking the time again
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+}
+
+
+
+
+
+
 
 void Company::loadFile()
 {

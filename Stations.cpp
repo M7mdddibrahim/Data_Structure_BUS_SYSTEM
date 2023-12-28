@@ -150,66 +150,75 @@ bool Stations::RemovePassenger(Queue<Passengers*> p, int id)
 	return x;
 }
 
-void Stations::changeBusStatus(int busId)  // from moving to stop
+void changeBusStatus(int busId, Queue<Buses*> &FWBusList, Queue<Buses*> &BWBusList)
 {
-	
-		Buses* currentBus = nullptr;
+	// Use Queue for both forward and backward bus lists
+	Queue<Buses*> tempFWBusList;
+	Queue<Buses*> tempBWBusList;
 
-		// Find the bus with the specified ID in the linked list
-		if (FWBusList.IsEmpty() && BWBusList.IsEmpty())
+	Buses* currentBus = nullptr;
+
+	// Search in the forward bus list
+	while (!FWBusList.IsEmpty())
+	{
+		Buses* tempBus = nullptr;
+		FWBusList.Dequeue(tempBus);
+
+		if (tempBus->GetID() == busId)
 		{
-			cout << "No buses available at the station." << endl;
-			return;
+			currentBus = tempBus;
+			tempFWBusList.Enqueue(tempBus);
+			break;
 		}
 
-		// Search in the forward bus list
-		Queue<Buses*> tempFWBusList = FWBusList;
-		while (!tempFWBusList.IsEmpty())
+		tempFWBusList.Enqueue(tempBus); // Enqueue the bus back to the original list
+	}
+
+	// Search in the backward bus list if not found in the forward list
+	if (currentBus == nullptr)
+	{
+		while (!tempBWBusList.IsEmpty())
 		{
 			Buses* tempBus = nullptr;
-			tempFWBusList.Dequeue(tempBus);
+			BWBusList.Dequeue(tempBus);
 
 			if (tempBus->GetID() == busId)
 			{
 				currentBus = tempBus;
+				tempBWBusList.Enqueue(tempBus);
 				break;
 			}
 
-			FWBusList.Enqueue(tempBus); // Enqueue the bus back to the original list
-		}
-
-		// Search in the backward bus list if not found in the forward list
-		if (currentBus == nullptr)
-		{
-			Queue<Buses*> tempBWBusList = BWBusList;
-			while (!tempBWBusList.IsEmpty())
-			{
-				Buses* tempBus = nullptr;
-				tempBWBusList.Dequeue(tempBus);
-
-				if (tempBus->GetID() == busId)
-				{
-					currentBus = tempBus;
-					break;
-				}
-
-				BWBusList.Enqueue(tempBus); // Enqueue the bus back to the original list
-			}
-		}
-
-		if (currentBus != nullptr)
-		{
-			cout << "Changing status of Bus " << busId << " from moving to waiting." << endl;
-
-			// Assuming 0 represents moving and 1 represents waiting
-			currentBus->SetStatus(1); // Set status to waiting
-		}
-		else
-		{
-			cout << "Bus " << busId << " not found at the station." << endl;
+			tempBWBusList.Enqueue(tempBus); // Enqueue the bus back to the original list
 		}
 	}
 
+	if (currentBus != nullptr)
+	{
+		cout << "Changing status of Bus " << busId << " from moving to waiting." << endl;
+
+		// Assuming 0 represents moving and 1 represents waiting
+		currentBus->SetStatus(1); // Set status to waiting
+	}
+	else
+	{
+		cout << "Bus " << busId << " not found at the station." << endl;
+	}
+	
+	while (!tempBWBusList.IsEmpty()) {
+		Buses* tempBus = nullptr;
+		tempBWBusList.Dequeue(tempBus);
+		BWBusList.Enqueue(tempBus);
+	}
+
+	while (!tempFWBusList.IsEmpty()) {
+		Buses* tempBus = nullptr;
+		tempFWBusList.Dequeue(tempBus);
+		FWBusList.Enqueue(tempBus);
+	}
+
+
+}
 
 
 
