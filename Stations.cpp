@@ -150,6 +150,68 @@ bool Stations::RemovePassenger(Queue<Passengers*> p, int id)
 	return x;
 }
 
+void Stations::changeBusStatus(int busId)  // from moving to stop
+{
+	
+		Buses* currentBus = nullptr;
+
+		// Find the bus with the specified ID in the linked list
+		if (FWBusList.IsEmpty() && BWBusList.IsEmpty())
+		{
+			cout << "No buses available at the station." << endl;
+			return;
+		}
+
+		// Search in the forward bus list
+		Queue<Buses*> tempFWBusList = FWBusList;
+		while (!tempFWBusList.IsEmpty())
+		{
+			Buses* tempBus = nullptr;
+			tempFWBusList.Dequeue(tempBus);
+
+			if (tempBus->GetID() == busId)
+			{
+				currentBus = tempBus;
+				break;
+			}
+
+			FWBusList.Enqueue(tempBus); // Enqueue the bus back to the original list
+		}
+
+		// Search in the backward bus list if not found in the forward list
+		if (currentBus == nullptr)
+		{
+			Queue<Buses*> tempBWBusList = BWBusList;
+			while (!tempBWBusList.IsEmpty())
+			{
+				Buses* tempBus = nullptr;
+				tempBWBusList.Dequeue(tempBus);
+
+				if (tempBus->GetID() == busId)
+				{
+					currentBus = tempBus;
+					break;
+				}
+
+				BWBusList.Enqueue(tempBus); // Enqueue the bus back to the original list
+			}
+		}
+
+		if (currentBus != nullptr)
+		{
+			cout << "Changing status of Bus " << busId << " from moving to waiting." << endl;
+
+			// Assuming 0 represents moving and 1 represents waiting
+			currentBus->SetStatus(1); // Set status to waiting
+		}
+		else
+		{
+			cout << "Bus " << busId << " not found at the station." << endl;
+		}
+	}
+
+
+
 
 Queue<Passengers*> Stations::getNormalPF()
 {

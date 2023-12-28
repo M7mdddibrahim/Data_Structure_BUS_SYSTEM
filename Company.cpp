@@ -1,5 +1,5 @@
 ﻿#include "Company.h"
-
+#include"Stations.h"
 
 Company::Company()
 {
@@ -23,6 +23,7 @@ Company::Company()
 	hour = 0;
 	min = 0;
 	current_station = 0;
+
 }
 
 void Company::simulation()
@@ -178,6 +179,7 @@ int Company::timeConverter(ifstream& input)
 	min += hour * 60;
 	return min;
 }
+
 
 void Company::loadFile()
 {

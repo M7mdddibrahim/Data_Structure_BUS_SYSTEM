@@ -41,6 +41,7 @@ class Company
 	List<Passengers> SPF;// adyma
 	List<Passengers> SPB;// adyma
 	List<Passengers> Finishing_list;// adyma
+	
 
 	// new lists starts from here 
 	Queue<Event*> EventList;

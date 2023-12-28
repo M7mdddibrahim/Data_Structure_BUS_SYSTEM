@@ -83,6 +83,7 @@ public:
 	// Functions
 	void AddPassengers(Passengers* P);
 	bool RemovePassenger(Queue<Passengers*> p, int id);
+	void changeBusStatus(int busId);
 };
 	//bool CheckFulljourney();   // checks if the bus complete the journey or not
 	//bool CheckCapacity(MaxStationCapacity);    // checks if the stations has reached its full capacity or not 

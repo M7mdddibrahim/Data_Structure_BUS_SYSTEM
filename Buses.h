@@ -7,6 +7,7 @@
 #include <thread>
 #include <string>
 #include "PriorityQueue.h"
+#include "List.h"
 using namespace std;
 
 
@@ -33,10 +34,12 @@ private:
 	//Time TSIM; // Total Simulation Time
 	PriorityQueue<Passengers> MBus;
 	PriorityQueue<Passengers> WBus;
+	int status;  // 0 for moving, 1 for waiting
 
 public:
 	Buses()
 	{
+		status = 0;
 		WBCapacity = 0;
 		MBCapacity = 0;
 		WCHT = 0;
@@ -67,6 +70,10 @@ public:
 	}
 
 	// Setters
+	void SetStatus(int newStatus)
+	{
+		status = newStatus;
+	}
 	void Set_BusType(BusType bustype)
 	{
 		BT = bustype;
@@ -157,6 +164,10 @@ public:
 	{
 		return ID;
 	}
+	int GetStatus() const
+	{
+		return status;
+	}
 	//Time GetMoveTime();
 	//Time GetBusyTime();
 	//Time GetSimulationTime();
@@ -191,7 +202,7 @@ public:
 	//	return (BusUtil * 100);
 	//}
 
-	/*void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses) {
+	void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses) {
 
 		while (true) {
 			// Get the current time
@@ -227,7 +238,7 @@ public:
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 		}
 	
-	}*/
+	
 
 
 
