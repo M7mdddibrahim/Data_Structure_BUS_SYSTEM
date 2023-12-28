@@ -1,19 +1,39 @@
 #include "Time.h"
 
+Time::Time()
+{
+	hours = 4;
+	min = 0;
+}
 Time::Time(int h, int mm)
 {
-
 	hours = h;
 	min = mm;
-
-
 }
 
-Time::~Time()
+
+void Time::SetHours(int TotalHours)
 {
-	// Destructor
+	hours = TotalHours;
+}
+void Time::SetMin(int TotalMin)
+{
+	min = TotalMin;
+}
+int Time::getHours()
+{
+	return hours;
+}
+int Time::getMin()
+{
+	return min;
 }
 
+
+void Time::IncrementHour()
+{
+	hours++;
+}
 void Time::MoveTime(int mm)
 {
 	min = mm + min;
@@ -26,4 +46,8 @@ void Time::MoveTime(int mm)
 	}
 
 
+}
+Time::~Time()
+{
+	// Destructor
 }

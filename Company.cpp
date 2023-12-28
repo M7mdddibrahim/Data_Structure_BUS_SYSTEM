@@ -79,13 +79,33 @@ bool Company::Leave_List(List<Passengers>current)
 	}
 	return false;
 }
+<<<<<<< Updated upstream
 void Company::addPassenger(Passengers* P)
 {
 	stationArray[P->getSStaion()].AddPassengers(P);
 }
 bool Company::Leave_Passenger(int id)
+=======
+void Company::Leave_Passenger(int STARTS, int id)
+>>>>>>> Stashed changes
 {
-	Passengers P;
+	if (stationArray[STARTS].RemovePassenger(stationArray[STARTS].getNormalPF(), id))
+	{
+		return;
+	}
+
+	if (stationArray[STARTS].RemovePassenger(stationArray[STARTS].getNormalPB(), id))
+	{
+		return;
+	}
+	//if (stationArray[STARTS].removePassengerUsingID(stationArray[STARTS].getNormalPassengerB(), id)) return;
+	//if (stationArray[STARTS].removePassengerUsingID(stationArray[STARTS].getNormalPassengerF(), id)) return;
+
+	//if (stationArray[STARTS].removePassengerUsingID(stationArray[STARTS].getWheelChairPassengerF(), id)) return;
+	//if (stationArray[STARTS].removePassengerUsingID(stationArray[STARTS].getWheelChairPassengerB(), id)) return;
+	//if (stationArray[STARTS].removeSpecialPassengerUsingId(stationArray[STARTS].getSpecialPassengerF(), id)) return;
+	//if (stationArray[STARTS].removeSpecialPassengerUsingId(stationArray[STARTS].getSpecialPassengerB(), id)) return;
+	/*Passengers P;
 	for (int i = 0; i < NPF.getCount(); i++)
 	{
 		Node<Passengers>* temp = NPF.getHead();
@@ -108,7 +128,7 @@ bool Company::Leave_Passenger(int id)
 		}
 		t = t->GetNext();
 	}
-	return false;
+	return false;*/
 
 }
 
@@ -181,6 +201,10 @@ void Company::loadFile()
 		B.Set_MCheckupTime(MBus_CheckupTime);         B.Set_WCheckupTime(WBus_CheckupTime);
 		MBus.insertNode(B);
 		WBus.insertNode(B);
+		for (int i = 0; i < no_ofStations; i++)
+		{
+			stationArray[i] = Stations(i);
+		}
 		input >> NumofEvents;
 
 		for (int i = 0; i < NumofEvents; i++)
@@ -268,7 +292,7 @@ void Company::loadFile()
 				input >> ID >> SStation;
 				P.setID(ID);
 				P.setSStaion(SStation);
-				Leave_Passenger(P.getID());
+				Leave_Passenger( SStation, P.getID());
 			}
 		}
 	}
