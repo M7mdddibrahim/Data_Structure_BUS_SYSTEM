@@ -83,7 +83,8 @@ public:
 	// Functions
 	void AddPassengers(Passengers* P);
 	bool RemovePassenger(Queue<Passengers*> p, int id);
-	void changeBusStatus(int busId);
+	void changeBusStatus(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList); // from moving to waiting 
+	void MoveBusFromWaitingToMoving(int busId, Queue<Buses*> FWBusList, Queue<Buses*> BWBusList); // from waiting to moving 
 };
 	//bool CheckFulljourney();   // checks if the bus complete the journey or not
 	//bool CheckCapacity(MaxStationCapacity);    // checks if the stations has reached its full capacity or not 

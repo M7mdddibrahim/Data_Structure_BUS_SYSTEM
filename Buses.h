@@ -240,7 +240,18 @@ public:
 	
 	
 
-
+	void MoveFromWaitingToMoving()  // used in Phase 2 function Abdelrahman was here   Need more conditions 
+	{
+		if (GetStatus() == 1)
+		{
+			cout << "Moving Bus " << GetID() << " from waiting to moving." << endl;
+			SetStatus(0); // Set status to moving
+		}
+		else
+		{
+			cout << "Bus " << GetID() << " is not in the waiting state." << endl;
+		}
+	}
 
 	string GetBusDirection()
 	{
