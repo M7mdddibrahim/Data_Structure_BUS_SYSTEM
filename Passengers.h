@@ -1,6 +1,7 @@
 #pragma once
 #include"Queue.h"
 #include "PriorityQueue.h"
+#include "Time.h"
 #include<iostream>
 using namespace std;
 class Passengers
@@ -8,7 +9,7 @@ class Passengers
 private:
 	string SPTyp; // passenger Special Type
 	string Typ; // passenger type
-	int AT; // Arrival Time
+	Time AT; // Arrival Time
 	int SStaion; //Start Station
 	int EStaion; // End Station
 	int ON_OFFTime; // passenger Get on/Off Time
@@ -19,31 +20,31 @@ private:
 
 public:
 	Passengers();
-	Passengers(string spTyp, string T, int AT, int SS, int ES, int OnOffTime, int Prio)
+	Passengers(string spTyp, string T, Time& AT, int SS, int ES, int id)
 	{
 		setSPtyp(spTyp);
 		setTyp(T);
 		setAT(AT);
 		setSStaion(SS);
 		setEStaion(ES);
-		setOn_OffTime(OnOffTime);
-		setPrio(Prio);
+		setID(id);
+		//setPrio(Prio);
 	}
 
-	Passengers(string T, int AT, int SS, int ES, int OnOffTime)
+	Passengers(string T, int SS, int ES,Time& AT, int id)
 	{
 		setTyp(T);
 		setAT(AT);
 		setSStaion(SS);
 		setEStaion(ES);
-		setOn_OffTime(OnOffTime);
+		setID(id);
 	}
 
 	void setID(int id);
 	void setSPtyp(string spTyp);
 	void setTyp(string T);
 
-	void setAT(int Atime);
+	void setAT(Time& Atime);
 	void setLT(int leaveTime);
 
 	void setSStaion(int SStation);
@@ -55,7 +56,7 @@ public:
 	string getSPtyp();
 
 	string getTyp();
-	int getAT();
+	Time getAT();
 	int getID();
 	int getSStaion();
 

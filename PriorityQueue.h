@@ -56,7 +56,7 @@ public:
 		count--;
 		return true;
 	}
-	void Peek(T& item)
+	bool Peek(T& item)
 	{
 		if (IsEmpty())
 			return false;
@@ -72,7 +72,7 @@ public:
 	{
 		if (IsEmpty())
 		{
-			cout << "Priority Queue is empty " << endl;
+			cout << " " << endl;
 		}
 		Node<T>* Temp = Front;
 		while (Temp != nullptr)

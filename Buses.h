@@ -21,10 +21,12 @@ private:
 	int MCHT;              // Mixed Checkup Time
 	int J;                // Number of Finished Trips
 	int WBC;               // WBus_Count
-	int MBC;              //MBus_Count
+	int MBC;              // MBus_Count
 	int TB;               // Total Number of Buses
 	int WSpeed;           // Speed of Wheel Busses
 	int MSpeed;     // Speed of Mixed Busses
+	int nextBusStation; // bus next station
+	int currBusStation; // bus Curren station
 	float BusUtil;  // Bus Utilization  
 	int ID;
 	string Direction;  // Direction of the Bus
@@ -66,7 +68,6 @@ public:
 		WBC = WBcount;
 		MBC = MBcount;
 		ID = id;
-
 	}
 
 	// Setters
@@ -115,6 +116,14 @@ public:
 	{
 		MCHT = mbcheckup;
 	}
+	void Set_CurrBusStation(int CurrStation)
+	{
+		currBusStation = CurrStation;
+	}
+	void Set_NextBusStation(int nextStation)
+	{
+		nextBusStation = nextStation;
+	}
 	// Getters
 	BusType Getbustype()
 	{
@@ -158,7 +167,7 @@ public:
 	}
 	int Get_TotalNumberofBuses()
 	{
-		return TB=WBC+MBC;
+		return TB = WBC + MBC;
 	}
 	int GetID()
 	{
@@ -167,6 +176,14 @@ public:
 	int GetStatus() const
 	{
 		return status;
+	}
+	int GetCurrBusStation()
+	{
+		return currBusStation;
+	}
+	int GetnextBusStation()
+	{
+		return nextBusStation;
 	}
 	//Time GetMoveTime();
 	//Time GetBusyTime();
@@ -217,12 +234,12 @@ public:
 				auto hours = std::chrono::duration_cast<std::chrono::hours>(currentTime.time_since_epoch()).count() % 24;
 				std::cout << "Bus released from Station #0 at " << hours << ":" << minutes << std::endl;
 
-				// Add your bus release logic here  Abdelrahman thinking 
+				// Add your bus release logic here  Abdelrahman thinking
 				if (stationZero.IsEmpty()) {
 					cout << "No buses available at station zero." << endl;
 					return;
 				}
-				
+
 				int busNumber;
 				stationZero.Dequeue(busNumber);  // Remove the first bus from the queue
 				buses.insertNode(busNumber);     // Add the released bus to the list
@@ -237,8 +254,32 @@ public:
 			// Delay for 1 second before checking the time again
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 		}*/
-	
-	
+
+
+	void addPassenger(Passengers*& P)
+	{
+		int Prio = abs(P->getEStaion() - P->getSStaion());
+		if (P->getTyp() == "SP" || P->getTyp() == "NP")
+		{
+			MBus.Enqueue(*P, Prio);
+		}
+		else if (P->getTyp() == "WP")
+		{
+			WBus.Enqueue(*P, Prio);
+		}
+	}
+
+	void removePassenger(Passengers*& P)
+	{
+		if (P->getTyp() == "SP" || P->getTyp() == "NP")
+		{
+			MBus.Dequeue(*P);
+		}
+		else if (P->getTyp() == "WP")
+		{
+			WBus.Dequeue(*P);
+		}
+	}
 
 	void MoveFromWaitingToMoving()  // used in Phase 2 function Abdelrahman was here   Need more conditions 
 	{

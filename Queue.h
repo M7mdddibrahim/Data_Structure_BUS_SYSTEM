@@ -27,7 +27,7 @@ public:
 			return false;
 		}
 	}
-	bool Enqueue(T& item)
+	bool Enqueue(const T& item)
 	{
 		Node<T>* Temp = new Node<T>();
 		Temp->SetData(item);
@@ -73,6 +73,13 @@ public:
 			return true;
 		}
 	}
+	bool peek(T& item) const
+	{
+		if (Front == nullptr)
+			return false;
+		item = Front->GetData();
+		return true;
+	}
 	void PeekFront(T& item)
 	{
 		item = Front->GetData();
@@ -85,15 +92,14 @@ public:
 	{
 		if (IsEmpty())
 		{
-			cout << "The Queue is empty" << endl;
+			cout << " " ;
 		}
 		Node<T>* Temp = Front;
 		while (Temp != nullptr)
 		{
-			cout << Temp->GetData() << " ";
+			cout << Temp->GetData() << " ,";
 			Temp = Temp->GetNext();
 		}
-		cout << endl;
 	}
 	int GetSize()   // to return the size of the queue
 	{

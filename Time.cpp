@@ -34,6 +34,19 @@ void Time::IncrementHour()
 {
 	hours++;
 }
+void Time::IncrementMin()
+{
+	if (min+1 == 59 )
+	{
+		min = 0;
+		hours++;
+	}
+	else
+	{
+		min++;
+	}
+}
+
 void Time::MoveTime(int mm)
 {
 	min = mm + min;
@@ -44,8 +57,6 @@ void Time::MoveTime(int mm)
 		hours = hours + (min / 60);
 		min = min - ((min / 60) * 60);
 	}
-
-
 }
 Time::~Time()
 {

@@ -12,9 +12,10 @@ protected:
 	int ENDS; // END station
 	string SPTYP;
 	int ON_OFFT;
+	int Priority;
 
 public:
-	 ArrivalEvent(Time time, string SPTyp, string Typ, int SStation, int EStation, Time ET, int ID_pass)
+	 ArrivalEvent(string SPTyp, string Typ, int SStation, int EStation, Time ET, int ID_pass )
 	{
 		SPTYP = SPTyp;
 		TYP = Typ;
@@ -23,6 +24,7 @@ public:
 		time.SetHours(ET.getHours());
 		time.SetMin(ET.getMin());
 		ID = ID_pass;
+		//Priority = prio;
 	}
 	ArrivalEvent(string Typ, int SStation, int EStation, Time ET, int ID_pass)
 	{
@@ -34,22 +36,17 @@ public:
 		ID = ID_pass;
 	}
 
-	bool isSPEmpty()
-	{
-		return SPTYP.empty();
-	}
-
 	void excute(Company* C)
 	{
-		if (isSPEmpty())
+		if (TYP == "WP" || TYP == "NP")
 		{
 			Passengers* P = new Passengers(TYP, STARTS, ENDS, time, ID);
 			C->addPassenger(P);
 		}
-		/*else
+		else if (TYP == "SP")
 		{
-			Passengers* P = new Passengers(time , specialP, Type, STRTStation, ENDstation, TimeStamp, ID);
+			Passengers* P = new Passengers(SPTYP, TYP,time, STARTS, ENDS, ID);
 			C->addPassenger(P);
-		}*/
+		}
 	}
 }; 

@@ -51,9 +51,9 @@ void UI::RunningProgram()
 		}*/
 	}
 }
-void UI::PrintTime(int hour, int min)
+void UI::PrintTime(Time T)
 {
-	cout << "Current Time (Hour:Min) ==> " << hour << ":" << min << endl;
+	cout << "Current Time (Hour:Min) ==> " << T.getHours() << ":" << T.getMin() << endl;
 }
 void UI::PrintBuses(List<Buses> MBus, List<Buses>WBus)
 {
@@ -86,58 +86,86 @@ int UI::getStation()
 	return CurrentStation;
 }
 
-void UI::PrintPassengers(List<Passengers> NPF, List<Passengers> NPB, List<Passengers> WPF, List<Passengers> WPB, List<Passengers> SPF, List<Passengers> SPB)
+void UI::PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Queue<Passengers*> WWPFW, Queue<Passengers*> WWPBW, PriorityQueue<Passengers*> WSPFW,PriorityQueue<Passengers*> WSPBW)
 {
-	Node<Passengers>* temp = SPF.getHead();
-	Node<Passengers>* t = SPB.getHead();
-	cout << SPF.getCount() + SPB.getCount() << " Waiting SP: ";
+	//Node<Passengers>* temp = SPF.getHead();
+	//Node<Passengers>* t = SPB.getHead();
+	Passengers* P;
+	Queue<Passengers*> Lltfry8FW;
+	Queue<Passengers*> Lltfry8BW;
+	Passengers* PFW;
+	cout << WSPFW.GetCount() + WSPBW.GetCount() << " Waiting SP: ";
 	cout << "FWD[ ";
-	for (int i = 0; i < SPF.getCount(); i++)
+	while(!WSPFW.IsEmpty())
 	{
-		if (temp->GetData().getSStaion() == CurrentStation)
+		if (WSPFW.Peek(P))
 		{
-			cout << temp->GetData();
-			cout << "(" << temp->GetData().getSPtyp() << ")";
-			if (temp->GetNext())
-				cout << " , ";
+			if (P->getSStaion() == CurrentStation)
+			{
+				cout << P->getID();
+				cout << "(" << P->getSPtyp() << ")";
+				WSPFW.Dequeue(P);
+				Lltfry8FW.Enqueue(P);
+			}
+			else
+			{
+				WSPFW.Dequeue(P);
+				Lltfry8FW.Enqueue(P);
+			}
 		}
-		temp = temp->GetNext();
+	}
+	while (!Lltfry8FW.IsEmpty())
+	{
+		Lltfry8FW.Dequeue(P);
+		WSPFW.Enqueue(P,P->getPrio());
 	}
 	cout << "] BCK[";
-	for (int i = 0; i < SPB.getCount(); i++)
+	while(!WSPBW.IsEmpty())
 	{
-		if (t->GetData().getSStaion() == CurrentStation)
+		if (WSPBW.Peek(P))
 		{
-			cout << t->GetData();
-			cout << "(" << t->GetData().getSPtyp() << ")";
-			if (t->GetNext())
-				cout << " , ";
+			if (P->getSStaion() == CurrentStation)
+			{
+				cout << P->getID();
+				cout << "(" << P->getSPtyp() << ")";
+				WSPBW.Dequeue(P);
+				Lltfry8BW.Enqueue(P);
+			}
+			else
+			{
+				WSPBW.Dequeue(P);
+				Lltfry8BW.Enqueue(P);
+			}
 		}
-		t = t->GetNext();
 	}
+	while (!Lltfry8BW.IsEmpty())
+	{
+		Lltfry8BW.Dequeue(P);
+		WSPBW.Enqueue(P,P->getPrio());
+	}
+	cout << " ]" << endl;
+	cout << endl;
+	cout << WWPFW.GetSize() + WWPBW.GetSize() << " Waiting WP: FWD[";
+	WWPFW.Display();
+	cout << "] BCK[";
+	WWPBW.Display();
 	cout << "]" << endl;
 	cout << endl;
-	cout << WPF.getCount() + WPB.getCount() << " Waiting WP: FWD[";
-	WPF.Print();
+	cout << WNPFW.GetSize() + WNPBW.GetSize() << " Waiting NP: FWD[";
+	WNPFW.Display();
 	cout << "] BCK[";
-	WPB.Print();
-	cout << "]" << endl;
-	cout << endl;
-	cout << NPF.getCount() + NPB.getCount() << " Waiting NP: FWD[";
-	NPF.Print();
-	cout << "] BCK[";
-	NPB.Print();
+	WNPBW.Display();
 	cout << "]" << endl;
 	cout << endl;
 
 }
-void UI::PrintFinishedPass(List<Passengers> Finishing_list)
+void UI::PrintFinishedPass(Queue<Passengers*> Completed)
 {
-	cout << Finishing_list.getCount() << " Finished Passengers: ";
-	Finishing_list.Print();
+	cout << Completed.GetSize() << " Finished Passengers: ";
+	Completed.Display();
 	cout << endl;
 	cout << "Press any key to display next station" << endl;
-	int getch();
+	cin.get();
 	
 
 
@@ -145,7 +173,7 @@ void UI::PrintFinishedPass(List<Passengers> Finishing_list)
 void UI::InteractiveMode()
 {
 
-	PrintTime(0, 0);
+	//PrintTime();
 	PrintStation(0);
 	//PrintPassengers();
 	//PrintBuses();

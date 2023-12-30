@@ -12,7 +12,7 @@ public:
 		ID = id;
 		STARTS = starts;
 	}
-	virtual void execute(Company* C)
+	void excute(Company* C)
 	{
 		C->Leave_Passenger(STARTS, ID);
 	}

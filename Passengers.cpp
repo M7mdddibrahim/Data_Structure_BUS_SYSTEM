@@ -3,7 +3,7 @@
 
 Passengers::Passengers()
 {
-	AT = 0;
+	//AT = 0;
 	SStaion = 0;
 	EStaion = 0;
 	ON_OFFTime = 0;
@@ -24,7 +24,7 @@ void  Passengers::setTyp(string T)
 	Typ = T;
 }
 
-void  Passengers::setAT(int Atime)
+void  Passengers::setAT(Time& Atime)
 {
 	AT = Atime;
 }
@@ -62,7 +62,7 @@ string  Passengers::getTyp()
 	return Typ;
 }
 
-int  Passengers::getAT()
+Time  Passengers::getAT()
 {
 	return AT;
 }
@@ -108,7 +108,7 @@ void  Passengers::CalcPrio()
 	}
 	if (Typ == "WP")
 	{
-
+		Priority = 0;
 		return;
 	}
 }

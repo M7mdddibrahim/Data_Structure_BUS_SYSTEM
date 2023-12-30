@@ -21,6 +21,7 @@ public:
 
 	// Function
 	void IncrementHour();
+	void IncrementMin();
 	void MoveTime(int mm);
 	~Time();
 

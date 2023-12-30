@@ -21,15 +21,17 @@ public:
 	UI();
 	void ChoosingMode(int x);
 	void RunningProgram();
-	void PrintTime(int hour, int min);
+	void PrintTime(Time T);
 	void PrintStation(int station);
 	int getStation();
-	void PrintPassengers(List<Passengers> NPF, List<Passengers> NPB, List<Passengers> WPF, List<Passengers> WPB, List<Passengers> SPF, List<Passengers> SPB);
+	void PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Queue<Passengers*> WWPFW, Queue<Passengers*> WWPBW, PriorityQueue<Passengers*> WSPFW, PriorityQueue<Passengers*> WSPBW);
 	void PrintBuses(List<Buses> MBus, List<Buses>WBus);
 	void PrintLine();
-	void PrintFinishedPass(List<Passengers> Finishing_list);
+	void PrintFinishedPass(Queue<Passengers*> Completed);
 	void InteractiveMode();
 	void SilentMode();
+
+	void awaitFunction();
 
 };
 

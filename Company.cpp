@@ -1,9 +1,13 @@
 ﻿#include "Company.h"
 #include"Stations.h"
+#include "ArrivalEvent.h"
+#include "LeaveEvent.h"
 
 Company::Company()
 {
 	ui = new UI;
+	Timer.SetHours(4);
+	Timer.SetMin(0);
 	no_ofStations = 0;
 	Time_Between_Stations = 0;
 	WBusses_Count = 0;
@@ -28,7 +32,7 @@ Company::Company()
 
 void Company::simulation()
 {
-	int FC = Finishing_list.getCount();
+	int FC = Completed.GetSize();
 	while (NumofEvents == FC)
 	{
 		if (timerH >= 4 && timerH <= 22)
@@ -45,46 +49,39 @@ void Company::simulation()
 			}
 
 			loadFile();
-			randomleave(NPF, NPB, WPF, WPB, SPF, SPB);
+			randomleave();
 			output();
 			system("CLS"); //clears the console 
 		}
-
-		timeIncremeter();
+		Timer.IncrementMin();
 		//TODO: after incrementing the time you need to increment the hours, look at function timeConverter to understand,
 		// how we manage the time for the passengers
 	}
 
 }
 
-void Company::timeIncremeter()
-{
-	if (timerM == 59)
-		timerH++;
-	timerM++;
-}
-bool Company::Leave_List(List<Passengers>current)
-{
-	Passengers p;
-	for (int i = 0; i < current.getCount(); i++)
-	{
-		Node<Passengers>* temp = current.getHead();
-		if ((temp->GetData().getSStaion() == current_station) && (timerH * 60 + timerM) == temp->GetData().getAT())
-		{
-			p = temp->GetData();
-			current.DeleteNode(p);
-			Finishing_list.insertNode(p);
-			return (true);
-		}
-		temp = temp->GetNext();
-	}
-	return false;
-}
+//bool Company::Leave_List(List<Passengers>current)
+//{
+//	Passengers p;
+//	for (int i = 0; i < current.getCount(); i++)
+//	{
+//		Node<Passengers>* temp = current.getHead();
+//		if ((temp->GetData().getSStaion() == current_station) && (timerH * 60 + timerM) == temp->GetData().getAT())
+//		{
+//			p = temp->GetData();
+//			current.DeleteNode(p);
+//			Completed.Enqueue(p);
+//			return (true);
+//		}
+//		temp = temp->GetNext();
+//	}
+//	return false;
+//}
+
 void Company::addPassenger(Passengers* P)
 {
 	stationArray[P->getSStaion()].AddPassengers(P);
 }
-//bool Company::Leave_Passenger(int id)
 
 void Company::Leave_Passenger(int STARTS, int id)
 {
@@ -97,13 +94,6 @@ void Company::Leave_Passenger(int STARTS, int id)
 	{
 		return;
 	}
-	//if (stationArray[STARTS].removePassengerUsingID(stationArray[STARTS].getNormalPassengerB(), id)) return;
-	//if (stationArray[STARTS].removePassengerUsingID(stationArray[STARTS].getNormalPassengerF(), id)) return;
-
-	//if (stationArray[STARTS].removePassengerUsingID(stationArray[STARTS].getWheelChairPassengerF(), id)) return;
-	//if (stationArray[STARTS].removePassengerUsingID(stationArray[STARTS].getWheelChairPassengerB(), id)) return;
-	//if (stationArray[STARTS].removeSpecialPassengerUsingId(stationArray[STARTS].getSpecialPassengerF(), id)) return;
-	//if (stationArray[STARTS].removeSpecialPassengerUsingId(stationArray[STARTS].getSpecialPassengerB(), id)) return;
 	/*Passengers P;
 	for (int i = 0; i < NPF.getCount(); i++)
 	{
@@ -131,32 +121,51 @@ void Company::Leave_Passenger(int STARTS, int id)
 
 }
 
-void Company::randomleave(List<Passengers> NPF, List<Passengers> NPB, List<Passengers> WPF, List<Passengers> WPB, List<Passengers> SPF, List<Passengers> SPB)
+void Company::randomleave()
 {
 	srand((unsigned)time(NULL));
+	Passengers* P;
 	for (int i = 0; i < no_ofStations; i++)
 	{
 		int random_number = rand() % 100;
 		if ((random_number >= 1) && (random_number <= 25))
 		{
-			if (Leave_List(SPF))
-				return;
-			else
-				Leave_List(SPB);
+			if (!stationArray[i].getSpecialPF().IsEmpty())
+			{
+				stationArray[i].getSpecialPF().Dequeue(P);
+				Completed.Enqueue(P);
+			}
+			else if (!stationArray[i].getSpecialPB().IsEmpty())
+			{
+				stationArray[i].getSpecialPB().Dequeue(P);
+				Completed.Enqueue(P);
+			}
 		}
 		if ((random_number >= 35) && (random_number <= 45))
 		{
-			if (Leave_List(WPF))
-				return;
-			else
-				Leave_List(WPB);
+			if (!stationArray[i].getWheelPF().IsEmpty())
+			{
+				stationArray[i].getWheelPF().Dequeue(P);
+				Completed.Enqueue(P);
+			}
+			else if (!stationArray[i].getWheelPB().IsEmpty())
+			{
+				stationArray[i].getWheelPB().Dequeue(P);
+				Completed.Enqueue(P);
+			}
 		}
 		if ((random_number >= 50) && (random_number <= 60))
 		{
-			if (Leave_List(NPF))
-				return;
-			else
-				Leave_List(NPB);
+			if (!stationArray[i].getNormalPF().IsEmpty())
+			{
+				stationArray[i].getNormalPF().Dequeue(P);
+				Completed.Enqueue(P);
+			}
+			else if (!stationArray[i].getNormalPB().IsEmpty())
+			{
+				stationArray[i].getNormalPB().Dequeue(P);
+				Completed.Enqueue(P);
+			}
 		}
 		//Next_station();
 	}
@@ -171,56 +180,61 @@ void Company::Next_station()
 }
 
 
-int Company::timeConverter(ifstream& input)
+//int Company::timeConverter(ifstream& input)
+//{
+//	input >> hour;
+//	input.ignore();
+//	input >> min;
+//	min += hour * 60;
+//	return min;
+//}
+void Company::timeConverter(ifstream& input)
 {
 	input >> hour;
 	input.ignore();
 	input >> min;
-	min += hour * 60;
-	return min;
+	//Timer.SetHours(hour);
+	//Timer.SetMin(min);
 }
 
-void Company::releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses)
+void Company::releaseBusFromStationZero(Queue<Buses*> MGB, Queue<Buses*> WGB)
 {
-
-	while (true) {
-		// Get the current time
-		auto currentTime = std::chrono::system_clock::now();
-
-		// Extract minutes from the current time
-		auto minutes = std::chrono::duration_cast<std::chrono::minutes>(currentTime.time_since_epoch()).count() % 60;
-
-		// Check if it's been 15 minutes since the last bus release
-		if (minutes % 15 == 0) {
-			// Print the bus release message
-			auto hours = std::chrono::duration_cast<std::chrono::hours>(currentTime.time_since_epoch()).count() % 24;
-			std::cout << "Bus released from Station #0 at " << hours << ":" << minutes << std::endl;
-
-			if (stationZero.IsEmpty()) {
-				cout << "No buses available at station zero." << endl;
-				return;
-			}
-
-			int busNumber;
-			stationZero.Dequeue(busNumber);  // Remove the first bus from the queue
-			buses.insertNode(busNumber);     // Add the released bus to the list
-
-			cout << "Bus " << busNumber << " released from station zero and added to buses list." << endl;
+	Buses* TempBus;
+	if (Timer.getMin() == 0 || Timer.getMin() == 30)
+	{
+		if (MGB.peek(TempBus))
+		{
+			MGB.Dequeue(TempBus);
+			MBMovingFW.Enqueue(TempBus);
 		}
-
-		// Delay for 1 second
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		else
+		{
+			WGB.Dequeue(TempBus);
+			WBMovingFW.Enqueue(TempBus);
+		}
 	}
-
-	// Delay for 1 second before checking the time again
-	std::this_thread::sleep_for(std::chrono::seconds(1));
+	else if (Timer.getMin() == 15 || Timer.getMin() == 45)
+	{
+		if (WGB.peek(TempBus))
+		{
+			WGB.Dequeue(TempBus);
+			WBMovingFW.Enqueue(TempBus);
+		}
+		else
+		{
+			MGB.Dequeue(TempBus);
+			MBMovingFW.Enqueue(TempBus);
+		}
+	}
 }
 
-
-
-
-
-
+void Company::BoardingWPassengers()
+{
+	for (int i = 0; i < no_ofStations; i++)
+	{
+		stationArray[i].BoardingWP(stationArray[i].getWheelPF(), stationArray[i].getWheelPB(), stationArray[i].getFWBusList(), stationArray[i].getBWBusList());
+	}
+}
 
 void Company::loadFile()
 {
@@ -250,129 +264,147 @@ void Company::loadFile()
 
 		for (int i = 0; i < NumofEvents; i++)
 		{
-			int time;
+			Time time;
 			string Special_Type;
 			string Dir;
-			Passengers P;
+			Passengers* P = new Passengers();
 			input >> Event_type;
 			if (Event_type == 'A')
 			{
 				input >> Pass_type;
 				if (Pass_type == "NP")
 				{
-					time = timeConverter(input);
-					P.setAT(time);
-					P.setTyp(Pass_type);
+					char H;
+					input >> hour >> H >> min;
+					time.SetHours(hour);
+					time.SetMin(min);
+					//P->setAT(time);
+					//P->setTyp(Pass_type);
 					input >> ID >> SStation >> EStation;
-					int i = ID;
-					P.setID(ID);
-					P.setSStaion(SStation);
-					P.setEStaion(EStation);
-					P.setPassengerDir();
-					Dir = P.getPassengerDir();
-					if (Dir == "FWD")
+					/*int i = ID;
+					P->setID(ID);
+					P->setSStaion(SStation);
+					P->setEStaion(EStation);
+					P->setPassengerDir();
+					Dir = P->getPassengerDir();*/
+					//stationArray[i].AddPassengers(P);
+					ArrivalEvent* PassengerArrived = new ArrivalEvent(Pass_type, SStation, EStation, time, ID);
+
+					EventList.Enqueue(PassengerArrived);
+					/*if (Dir == "FWD")
 					{
-						NPF.insertNode(P);
 					}
 					else if (Dir == "BCK")
 					{
-						NPB.insertNode(P);
-					}
+						S.AddPassengers(P);
+					}*/
 
 				}
 				if (Pass_type == "WP")
 				{
-					time = timeConverter(input);
-					P.setAT(time);
-					P.setTyp(Pass_type);
-					input >> ID >> SStation >> EStation;
-					P.setID(ID);
-					P.setSStaion(SStation);
-					P.setEStaion(EStation);
-					P.setPassengerDir();
-					Dir = P.getPassengerDir();
-					if (Dir == "FWD")
+					//timeConverter(input);
+					////P->setAT(time);
+					//P->setTyp(Pass_type);
+					//input >> ID >> SStation >> EStation;
+					//P->setID(ID);
+					//P->setSStaion(SStation);
+					//P->setEStaion(EStation);
+					//P->setPassengerDir();
+					//Dir = P->getPassengerDir();
+					//S.AddPassengers(P);
+					/*if (Dir == "FWD")
 					{
-						WPF.insertNode(P);
 					}
 					else if (Dir == "BCK")
 					{
-						WPB.insertNode(P);
-					}
-
+						S.AddPassengers(P);
+					}*/
+					char H;
+					input >> hour >> H >> min;
+					time.SetHours(hour);
+					time.SetMin(min);
+					input >> ID >> SStation >> EStation;
+					ArrivalEvent* PassengerArrived = new ArrivalEvent(Pass_type, SStation, EStation, time, ID);
+					EventList.Enqueue(PassengerArrived);
 				}
 				if (Pass_type == "SP")
 				{
-					time = timeConverter(input);
-					P.setAT(time);
-					P.setTyp(Pass_type);
-					input >> ID >> SStation >> EStation;
-					P.setID(ID);
-					P.setEStaion(EStation);
-					P.setSStaion(SStation);
-					input >> Special_Type;
-					P.setSPtyp(Special_Type);
-					P.setPassengerDir();
-					Dir = P.getPassengerDir();
-					if (Dir == "FWD")
+					//timeConverter(input);
+					////Timer.SetHours();
+					////P->setAT(time);
+					//P->setTyp(Pass_type);
+					//input >> ID >> SStation >> EStation;
+					//P->setID(ID);
+					//P->setEStaion(EStation);
+					//P->setSStaion(SStation);
+					//input >> Special_Type;
+					//P->setSPtyp(Special_Type);
+					//P->setPassengerDir();
+					//Dir = P->getPassengerDir();
+					//S.AddPassengers(P);
+					/*if (Dir == "FWD")
 					{
-						SPF.insertNode(P);
 					}
 					else if (Dir == "BCK")
 					{
-						SPB.insertNode(P);
-					}
-					continue;
+						S.AddPassengers(P);
+					}*/
+					/*continue;*/
+					char H;
+					input >> hour >> H >> min;
+					time.SetHours(hour);
+					time.SetMin(min);
+					input >> ID >> SStation >> EStation;
+					input >> Special_Type;
+					ArrivalEvent* PassengerArrived = new ArrivalEvent(Special_Type,Pass_type, SStation, EStation, time, ID);
+					EventList.Enqueue(PassengerArrived);
+
 				}
 				//time = timeConverter(input);
 			}
 			else if (Event_type == 'L')
 			{
-				LTime = timeConverter(input);
-				P.setLT(LTime);
+				/*timeConverter(input);*/
+				char H;
+				input >> hour >> H >> min;
+				time.SetHours(hour);
+				time.SetMin(min);
+				//P->setLT(LTime);
 				input >> ID >> SStation;
-				P.setID(ID);
-				P.setSStaion(SStation);
-				Leave_Passenger( SStation, P.getID());
+				/*P->setID(ID);
+				P->setSStaion(SStation);
+				Leave_Passenger( SStation, P->getID());*/
+				LeaveEvent* PassengereLeaving = new LeaveEvent(time, ID, SStation);
+				EventList.Enqueue(PassengereLeaving);
 			}
 		}
+
+	}
+	Event* tempEvent;
+	while (!EventList.peek(tempEvent) && tempEvent->)
+	{
+		
 	}
 }
 
 
 void Company::output()
 {
+	Stations S;
+	int i = 0;
 	while (current_station <= no_ofStations)
 	{
-		ui->PrintTime(timerH, timerM);
+		Queue<Passengers*> temp = stationArray[i].getNormalPF();
+		ui->PrintTime(Timer);
 		ui->PrintStation(current_station);
-		ui->PrintPassengers(NPF, NPB, WPF, WPB, SPF, SPB);
+		ui->PrintPassengers(stationArray[i].getNormalPF(), stationArray[i].getNormalPB(), stationArray[i].getWheelPF(), stationArray[i].getWheelPB(), stationArray[i].getSpecialPF(), stationArray[i].getSpecialPB());
 		ui->PrintBuses(MBus, WBus);
 		ui->PrintLine();
-		ui->PrintFinishedPass(Finishing_list);
-		timeIncremeter();
+		ui->PrintFinishedPass(Completed);
+		Timer.IncrementMin();
 		Next_station();
-		randomleave(NPF,NPB,WPF,WPB,SPF,SPB);
-		output();
+		randomleave();
+		//output();
+		i++;
 	}
-
 }
-
-
-
-
-
-	/*if (NPF.head->GetData().getAT() == (timerH * 60 + timerM))
-	{
-		ui->PrintPassengers(NPF, NPB, WPF, WPB, SPF, SPB);
-		ui->PrintLine();
-		ui->PrintFinishedPass(Finishing_list);
-	}
-	else
-	{
-		List<Passengers> NP;
-		ui->PrintPassengers(NP, NPB, WPF, WPB, SPF, SPB);
-		ui->PrintLine();
-		ui->PrintFinishedPass(Finishing_list);
-	}*/
-
