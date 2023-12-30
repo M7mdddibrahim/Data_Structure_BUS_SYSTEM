@@ -96,37 +96,24 @@ void UI::PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Que
 	Passengers* PFW;
 	cout << WSPFW.GetCount() + WSPBW.GetCount() << " Waiting SP: ";
 	cout << "FWD[ ";
-	/*while(!WSPFW.IsEmpty())
-	{
-		if (WSPFW.Peek(P))
-		{
-			if (P->getSStaion() == CurrentStation)
-			{
-				WSPFW.Dequeue(P);
-				cout << P->getID();
-				cout << "(" << P->getSPtyp() << ")";
-				Lltfry8FW.Enqueue(P);
-			}
-			else
-			{
-				WSPFW.Dequeue(P);
-				Lltfry8FW.Enqueue(P);
-			}
-		}
-	}
-	while (!Lltfry8FW.IsEmpty())
-	{
-		Lltfry8FW.Dequeue(P);
-		WSPFW.Enqueue(P,P->getPrio());
-	}*/
 	while (WSPFW.Dequeue(P))
 	{
 		if (P->getSStaion() == CurrentStation) 
 		{
 			cout << P->getID();
 			cout << "(" << P->getSPtyp() << ")";
+			//Lltfry8FW.Enqueue(P);
+		}
+		else
+		{
+			cout << " ";
 		}
 	}
+	/*while (!Lltfry8FW.IsEmpty())
+	{
+		Lltfry8FW.Dequeue(P);
+		WSPFW.Enqueue(P, P->getPrio());
+	}*/
 	cout << "] BCK[";
 	/*while(!WSPBW.IsEmpty())
 	{
@@ -157,20 +144,82 @@ void UI::PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Que
 		{
 			cout << P->getID();
 			cout << "(" << P->getSPtyp() << ")";
+			//Lltfry8BW.Enqueue(P);
+		}
+		else
+		{
+			cout << " ";
 		}
 	}
+	//while (!Lltfry8BW.IsEmpty())
+	//{
+	//	Lltfry8BW.Dequeue(P);
+	//	WSPBW.Enqueue(P, P->getPrio());
+	//}
 	cout << " ]" << endl;
 	cout << endl;
 	cout << WWPFW.GetSize() + WWPBW.GetSize() << " Waiting WP: FWD[";
-	WWPFW.Display();
+
+	while (WWPFW.Dequeue(P))
+	{
+		if (P->getSStaion() == CurrentStation)
+		{
+			cout << P->getID();
+			//WWPFW.Display();
+		}
+		else 
+		{
+			cout << " ";
+		}
+	}
 	cout << "] BCK[";
-	WWPBW.Display();
+	if (!WWPBW.IsEmpty())
+	{
+		while (WWPBW.Dequeue(P))
+		{
+			if (P->getSStaion() == CurrentStation)
+			{
+				cout << P->getID();
+				//WWPBW.Display();
+			}
+			else
+			{
+				cout << " ";
+			}
+		}
+	}
+	else
+	{
+		cout << " ";
+	}
 	cout << "]" << endl;
 	cout << endl;
 	cout << WNPFW.GetSize() + WNPBW.GetSize() << " Waiting NP: FWD[";
-	WNPFW.Display();
+	while (WNPFW.Dequeue(P))
+	{
+		if (P->getSStaion() == CurrentStation)
+		{
+			cout << P->getID();
+			//WNPFW.Display();
+		}
+		else
+		{
+			cout << " ";
+		}
+	}
 	cout << "] BCK[";
-	WNPBW.Display();
+	while (WNPBW.Dequeue(P))
+	{
+		if (P->getSStaion() == CurrentStation)
+		{
+			cout << P->getID();
+			//WNPBW.Display();
+		}
+		else
+		{
+			cout << " ";
+		}
+	}
 	cout << "]" << endl;
 	cout << endl;
 

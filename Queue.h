@@ -50,7 +50,7 @@ public:
 	{
 		if (IsEmpty())
 		{
-			cout << "The Queue is empty" << endl;
+			cout << " ";
 			count = 0;
 			return false;
 		}

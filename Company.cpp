@@ -389,21 +389,37 @@ void Company::output()
 	Stations S;
 	int i = 0;
 	Event* TempE;
-	while (EventList.Dequeue(TempE))
+	while (EventList.peek(TempE))
 	{
-		TempE->excute(this);
-		ui->PrintTime(Timer);
-		ui->PrintStation(current_station);
-		ui->PrintPassengers(stationArray[i].getNormalPF(), stationArray[i].getNormalPB(), stationArray[i].getWheelPF(), stationArray[i].getWheelPB(), stationArray[i].getSpecialPF(), stationArray[i].getSpecialPB());
-		ui->PrintBuses(MBus, WBus);
-		ui->PrintLine();
-		ui->PrintFinishedPass(Completed);
-		Timer.IncrementMin();
-		Next_station();
-		//randomleave();
-		i++;
-		//delete TempE;
-		//output();
+		if (TempE->getTime() == Timer)
+		{
+			/*EventList.peek(TempE);*/
+			//if (TempE->getTime()  == Timer)
+				TempE->excute(this);
+				ui->PrintTime(Timer);
+				ui->PrintStation(TempE->getStartS());
+				ui->PrintPassengers(stationArray[TempE->getStartS()].getNormalPF(), stationArray[TempE->getStartS()].getNormalPB(), stationArray[TempE->getStartS()].getWheelPF(), stationArray[TempE->getStartS()].getWheelPB(), stationArray[TempE->getStartS()].getSpecialPF(), stationArray[TempE->getStartS()].getSpecialPB());
+				ui->PrintBuses(MBus, WBus);
+				ui->PrintLine();
+				ui->PrintFinishedPass(Completed);
+				Timer.IncrementMin();
+				Next_station();
+				//randomleave();
+				EventList.Dequeue(TempE);
+				delete TempE;
+				//output();
+		}
+		else
+		{
+			ui->PrintTime(Timer);
+			ui->PrintStation(current_station);
+			ui->PrintPassengers(stationArray[current_station].getNormalPF(), stationArray[current_station].getNormalPB(), stationArray[current_station].getWheelPF(), stationArray[current_station].getWheelPB(), stationArray[current_station].getSpecialPF(), stationArray[current_station].getSpecialPB());
+			ui->PrintBuses(MBus, WBus);
+			ui->PrintLine();
+			ui->PrintFinishedPass(Completed);
+			Timer.IncrementMin();
+			Next_station();
+		}
 	}
 
 }
