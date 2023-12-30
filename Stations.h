@@ -62,11 +62,12 @@ public:
 	// Functions
 	void AddPassengers(Passengers* P);
 	bool RemovePassenger(Queue<Passengers*>&p, int id);
-	void changeBusStatus(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList); // from moving to waiting 
+	//void busMovingtoWaiting(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList); // from moving to waiting 
 	void MoveBusFromWaitingToMoving(int busId, Queue<Buses*> FWBusList, Queue<Buses*> BWBusList); // from waiting to moving 
 	void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses);
 	void BoardingWP(Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList);
-	void busWaitingToMoving(Queue<Buses*> FWBusList, Queue<Buses*> BWBusListQueue<Buses*> BWBusList)
+	void BoardingSPNP(PriorityQueue<Passengers*>& WSPFW, PriorityQueue<Passengers*>& WSPBW, Queue<Passengers*>& WNPFW, Queue<Passengers*>& WNPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList);
+	//void busWaitingToMoving(Queue<Buses*> FWBusList, Queue<Buses*> BWBusList)
 
 };
 
