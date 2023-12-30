@@ -30,7 +30,7 @@ public:
 			count++;
 			return;
 		}
-		if (Front->GetPriority() < p)
+		if (Front->GetPriority() > p)
 		{
 			Temp->SetNext(Front);
 			Front = Temp;

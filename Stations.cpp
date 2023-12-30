@@ -126,12 +126,12 @@ int Stations::getTimeBetweenSta()
 }
 
 
-Queue<Buses*> Stations::getFWBusList()
+Queue<Buses*>& Stations::getFWBusList()
 {
 	return FWBusList;
 }
 
-Queue<Buses*> Stations::getBWBusList()
+Queue<Buses*>& Stations::getBWBusList()
 {
 	return BWBusList;
 }
@@ -161,7 +161,6 @@ PriorityQueue<Passengers*>& Stations::getSpecialPB()
 {
 	return WSPBW;
 }
-
 
 bool Stations::RemovePassenger(Queue<Passengers*>& p, int id)
 {
@@ -329,53 +328,43 @@ void Stations::releaseBusFromStationZero(Queue<int>& stationZero, List<int>& bus
 {
 }
 
-void Stations::BoardingWP(Queue<Passengers*> WWPFW, Queue<Passengers*> WWPBW, Queue<Buses*> FWBusList, Queue<Buses*> BWBusList)
+void Stations::BoardingWP(Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList)
 {	
 	// keda hydno 3ala awl wa7d fe el list wala ana bythy2ly
 	Passengers* TempPFW;
 	Passengers* TempPBW;
 	Buses* TempFWBus;
 	Buses* TempBWBus;
-	Queue<Passengers*> Lltfry8FW;
-	Passengers* PFW;
-	Queue<Passengers*> Lltfry8BW;
-	Passengers* PBW;
-	while (!WWPFW.IsEmpty() && !WWPBW.IsEmpty())
+	while (!WWPFW.IsEmpty())
 	{
-		if (WWPFW.peek(TempPFW))
+		if (true)
 		{
-			FWBusList.peek(TempFWBus);
-			if (TempPFW->getSStaion() == TempFWBus->GetCurrBusStation()) 
-			{
-				WWPFW.Dequeue(TempPFW);
-				TempFWBus->addPassenger(TempPFW);
-			}
-			else
-			{
-				WWPFW.Dequeue(TempPFW);
-				Lltfry8FW.Enqueue(TempPFW);
-			}
+
 		}
-		else if (WWPBW.peek(TempPBW))
+		WWPFW.peek(TempPFW);
+		FWBusList.peek(TempFWBus);
+		if (TempPFW->getSStaion() == TempFWBus->GetCurrBusStation()) 
 		{
-			BWBusList.peek(TempBWBus);
-			if (TempPBW->getSStaion() == TempBWBus->GetCurrBusStation())
-			{
-				TempBWBus->addPassenger(TempPBW);
-			}
-			else
-			{
-				WWPBW.Dequeue(TempPBW);
-				Lltfry8BW.Enqueue(TempPBW);
-			}
+			WWPFW.Dequeue(TempPFW);
+			TempFWBus->addPassenger(TempPFW);
+		}
+		else
+		{
+			WWPFW.Dequeue(TempPFW);
 		}
 	}
-	while (!Lltfry8FW.IsEmpty() || !Lltfry8BW.IsEmpty())
+	while (!WWPBW.IsEmpty())
 	{
-		Lltfry8FW.Dequeue(PFW);
-		WWPFW.Enqueue(PFW);
-		Lltfry8BW.Dequeue(PBW);
-		WWPBW.Enqueue(PFW);
+		WWPBW.peek(TempPBW);
+		BWBusList.peek(TempBWBus);
+		if (TempPBW->getSStaion() == TempBWBus->GetCurrBusStation())
+		{
+			TempBWBus->addPassenger(TempPBW);
+		}
+		else
+		{
+			WWPBW.Dequeue(TempPBW);
+		}
 	}
 }
 

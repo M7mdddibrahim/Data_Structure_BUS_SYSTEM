@@ -34,14 +34,6 @@ class Company
 	int LTime;
 	int hour;
 	int min, current_station;
-	//List<Passengers> NPF;// adyma
-	//List<Passengers> NPB;// adyma
-	//List<Passengers> WPF;// adyma
-	//List<Passengers> WPB;// adyma
-	//List<Passengers> SPF;// adyma
-	//List<Passengers> SPB;// adyma
-	//List<Passengers> Finishing_list;// adyma
-	
 
 	// new lists starts from here 
 	Time Timer;
