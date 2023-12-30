@@ -8,7 +8,6 @@
 #include "NPQ.h"
 #include "Time.h"
 #include <iostream>
-#include "Company.h"
 using namespace std;
 
 
@@ -67,6 +66,7 @@ public:
 	void MoveBusFromWaitingToMoving(int busId, Queue<Buses*> FWBusList, Queue<Buses*> BWBusList); // from waiting to moving 
 	void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses);
 	void BoardingWP(Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList);
+	void busWaitingToMoving(Queue<Buses*> FWBusList, Queue<Buses*> BWBusListQueue<Buses*> BWBusList)
 
 };
 
