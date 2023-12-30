@@ -96,15 +96,15 @@ void UI::PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Que
 	Passengers* PFW;
 	cout << WSPFW.GetCount() + WSPBW.GetCount() << " Waiting SP: ";
 	cout << "FWD[ ";
-	while(!WSPFW.IsEmpty())
+	/*while(!WSPFW.IsEmpty())
 	{
 		if (WSPFW.Peek(P))
 		{
 			if (P->getSStaion() == CurrentStation)
 			{
+				WSPFW.Dequeue(P);
 				cout << P->getID();
 				cout << "(" << P->getSPtyp() << ")";
-				WSPFW.Dequeue(P);
 				Lltfry8FW.Enqueue(P);
 			}
 			else
@@ -118,9 +118,17 @@ void UI::PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Que
 	{
 		Lltfry8FW.Dequeue(P);
 		WSPFW.Enqueue(P,P->getPrio());
+	}*/
+	while (WSPFW.Dequeue(P))
+	{
+		if (P->getSStaion() == CurrentStation) 
+		{
+			cout << P->getID();
+			cout << "(" << P->getSPtyp() << ")";
+		}
 	}
 	cout << "] BCK[";
-	while(!WSPBW.IsEmpty())
+	/*while(!WSPBW.IsEmpty())
 	{
 		if (WSPBW.Peek(P))
 		{
@@ -142,6 +150,14 @@ void UI::PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Que
 	{
 		Lltfry8BW.Dequeue(P);
 		WSPBW.Enqueue(P,P->getPrio());
+	}*/
+	while (WSPBW.Dequeue(P))
+	{
+		if (P->getSStaion() == CurrentStation) 
+		{
+			cout << P->getID();
+			cout << "(" << P->getSPtyp() << ")";
+		}
 	}
 	cout << " ]" << endl;
 	cout << endl;

@@ -389,13 +389,8 @@ void Company::output()
 	Stations S;
 	int i = 0;
 	Event* TempE;
-
-
-	while (EventList.peek(TempE) && TempE->getTime() == Timer)
+	while (EventList.Dequeue(TempE))
 	{
-		EventList.Dequeue(TempE);
-		i = TempE->getStartS();
-
 		TempE->excute(this);
 		ui->PrintTime(Timer);
 		ui->PrintStation(current_station);
@@ -405,8 +400,9 @@ void Company::output()
 		ui->PrintFinishedPass(Completed);
 		Timer.IncrementMin();
 		Next_station();
-		randomleave();
-		delete TempE;
+		//randomleave();
+		i++;
+		//delete TempE;
 		//output();
 	}
 
