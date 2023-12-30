@@ -167,7 +167,7 @@ bool Stations::RemovePassenger(Queue<Passengers*> p, int id)
 {
 	bool x = false;
 	Queue<Passengers*> Temp;
-	Passengers* PA = nullptr;
+	Passengers* PA = new Passengers();
 	while (!(p.IsEmpty()))
 	{
 		p.Dequeue(PA);

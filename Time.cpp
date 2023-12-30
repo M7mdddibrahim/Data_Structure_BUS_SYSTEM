@@ -61,6 +61,10 @@ void Time::MoveTime(int mm)
 bool Time::operator==(const Time& other) const {
 	return (hours == other.hours && min == other.min);
 }
+bool Time::operator!=(const Time& other) const
+{
+	return (hours != other.hours && min != other.min);
+}
 
 Time::~Time()
 {

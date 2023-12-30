@@ -11,9 +11,11 @@
 #include"Stations.h"
 #include"List.h"
 using namespace std;
+class Company;
 class UI
 {
 private:
+	Time T;
 	Stations s;
 	int CurrentStation;
 

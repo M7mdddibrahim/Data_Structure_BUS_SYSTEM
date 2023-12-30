@@ -375,6 +375,7 @@ void Company::loadFile()
 				P->setSStaion(SStation);
 				Leave_Passenger( SStation, P->getID());*/
 				LeaveEvent* PassengereLeaving = new LeaveEvent(time, ID, SStation);
+				Leave_Passenger(SStation, ID);
 				EventList.Enqueue(PassengereLeaving);
 			}
 		}
@@ -395,19 +396,20 @@ void Company::output()
 		{
 			/*EventList.peek(TempE);*/
 			//if (TempE->getTime()  == Timer)
-				TempE->excute(this);
-				ui->PrintTime(Timer);
-				ui->PrintStation(TempE->getStartS());
-				ui->PrintPassengers(stationArray[TempE->getStartS()].getNormalPF(), stationArray[TempE->getStartS()].getNormalPB(), stationArray[TempE->getStartS()].getWheelPF(), stationArray[TempE->getStartS()].getWheelPB(), stationArray[TempE->getStartS()].getSpecialPF(), stationArray[TempE->getStartS()].getSpecialPB());
-				ui->PrintBuses(MBus, WBus);
-				ui->PrintLine();
-				ui->PrintFinishedPass(Completed);
-				Timer.IncrementMin();
-				Next_station();
-				//randomleave();
-				EventList.Dequeue(TempE);
-				delete TempE;
-				//output();
+			TempE->excute(this);
+			ui->PrintTime(Timer);
+			ui->PrintStation(TempE->getStartS());
+			ui->PrintPassengers(stationArray[TempE->getStartS()].getNormalPF(), stationArray[TempE->getStartS()].getNormalPB(), stationArray[TempE->getStartS()].getWheelPF(), stationArray[TempE->getStartS()].getWheelPB(), stationArray[TempE->getStartS()].getSpecialPF(), stationArray[TempE->getStartS()].getSpecialPB());
+			ui->PrintBuses(MBus, WBus);
+			ui->PrintLine();
+			ui->PrintFinishedPass(Completed);
+			Timer.IncrementMin();
+			Next_station();
+			//randomleave();
+			EventList.Dequeue(TempE);
+			delete TempE;
+			//output();
+
 		}
 		else
 		{
