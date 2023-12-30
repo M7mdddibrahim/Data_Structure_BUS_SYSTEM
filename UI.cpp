@@ -86,7 +86,7 @@ int UI::getStation()
 	return CurrentStation;
 }
 
-void UI::PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Queue<Passengers*> WWPFW, Queue<Passengers*> WWPBW, PriorityQueue<Passengers*> WSPFW,PriorityQueue<Passengers*> WSPBW)
+void UI::PrintPassengers(Queue<Passengers*>& WNPFW, Queue<Passengers*>& WNPBW, Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, PriorityQueue<Passengers*>& WSPFW,PriorityQueue<Passengers*>& WSPBW)
 {
 	//Node<Passengers>* temp = SPF.getHead();
 	//Node<Passengers>* t = SPB.getHead();
@@ -200,11 +200,12 @@ void UI::PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Que
 	cout << endl;
 	cout << WNPFW.GetSize() + WNPBW.GetSize() << " Waiting NP: FWD[";
 	while (WNPFW.peek(P))
-	{
+	{	
+		WNPFW.Dequeue(P);
 		if (P->getSStaion() == CurrentStation)
 		{
 			cout << P->getID();
-			WNPFW.Dequeue(P);
+			//WNPFW.Dequeue(P);
 
 			break;
 			//WNPFW.Display();

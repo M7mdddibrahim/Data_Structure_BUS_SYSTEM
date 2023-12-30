@@ -136,39 +136,39 @@ Queue<Buses*> Stations::getBWBusList()
 	return BWBusList;
 }
 
-Queue<Passengers*> Stations::getNormalPF()
+Queue<Passengers*>& Stations::getNormalPF()
 {
 	return WNPFW;
 }
 
-Queue<Passengers*> Stations::getNormalPB()
+Queue<Passengers*>& Stations::getNormalPB()
 {
 	return WNPBW;
 }
-Queue<Passengers*> Stations::getWheelPF()
+Queue<Passengers*>& Stations::getWheelPF()
 {
 	return WWPFW;
 }
-Queue<Passengers*> Stations::getWheelPB()
+Queue<Passengers*>& Stations::getWheelPB()
 {
 	return WWPBW;
 }
-PriorityQueue<Passengers*> Stations::getSpecialPF()
+PriorityQueue<Passengers*>& Stations::getSpecialPF()
 {
 	return WSPFW;
 }
-PriorityQueue<Passengers*> Stations::getSpecialPB()
+PriorityQueue<Passengers*>& Stations::getSpecialPB()
 {
 	return WSPBW;
 }
 
 
-bool Stations::RemovePassenger(Queue<Passengers*> p, int id)
+bool Stations::RemovePassenger(Queue<Passengers*>&p, int id)
 {
 	bool x = false;
 	Queue<Passengers*> Temp;
-	Passengers* PA = new Passengers();
-	while (!(p.IsEmpty()))
+	Passengers* PA = nullptr;
+	while (!p.IsEmpty())
 	{
 		p.Dequeue(PA);
 		if (PA->getID() == id)
@@ -180,7 +180,7 @@ bool Stations::RemovePassenger(Queue<Passengers*> p, int id)
 			Temp.Enqueue(PA);
 		}
 	}
-	while (!(Temp.IsEmpty()))
+	while (!Temp.IsEmpty())
 	{
 		Temp.Dequeue(PA);
 		p.Enqueue(PA);

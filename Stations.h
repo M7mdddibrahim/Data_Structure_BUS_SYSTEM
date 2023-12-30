@@ -10,7 +10,7 @@
 using namespace std;
 
 
-class Stations: public Passengers
+class Stations
 {
 private:
 	int Distance;
@@ -76,16 +76,16 @@ public:
 
 	Queue<Buses*> getFWBusList();
 	Queue<Buses*> getBWBusList();
-	Queue<Passengers*> getNormalPF();
-	Queue<Passengers*> getNormalPB();
-	Queue<Passengers*> getWheelPF();
-	Queue<Passengers*> getWheelPB();
-	PriorityQueue<Passengers*> getSpecialPF();
-	PriorityQueue<Passengers*> getSpecialPB();
+	Queue<Passengers*>& getNormalPF();
+	Queue<Passengers*>& getNormalPB();
+	Queue<Passengers*>& getWheelPF();
+	Queue<Passengers*>& getWheelPB();
+	PriorityQueue<Passengers*>& getSpecialPF();
+	PriorityQueue<Passengers*>& getSpecialPB();
 
 	// Functions
 	void AddPassengers(Passengers* P);
-	bool RemovePassenger(Queue<Passengers*> p, int id);
+	bool RemovePassenger(Queue<Passengers*>&p, int id);
 	void changeBusStatus(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList); // from moving to waiting 
 	void MoveBusFromWaitingToMoving(int busId, Queue<Buses*> FWBusList, Queue<Buses*> BWBusList); // from waiting to moving 
 	void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses);

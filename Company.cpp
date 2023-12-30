@@ -85,6 +85,10 @@ void Company::addPassenger(Passengers* P)
 
 void Company::Leave_Passenger(int STARTS, int id)
 {
+	Stations* p = &stationArray[STARTS];
+	Queue<Passengers*> x = p->getNormalPF();
+	Queue<Passengers*> y = p->getNormalPB();
+
 	if (stationArray[STARTS].RemovePassenger(stationArray[STARTS].getNormalPF(), id))
 	{
 		return;
@@ -374,7 +378,9 @@ void Company::loadFile()
 				/*P->setID(ID);
 				P->setSStaion(SStation);
 				Leave_Passenger( SStation, P->getID());*/
+				cout << ID;
 				LeaveEvent* PassengereLeaving = new LeaveEvent(time, ID, SStation);
+
 				Leave_Passenger(SStation, ID);
 				EventList.Enqueue(PassengereLeaving);
 			}

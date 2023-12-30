@@ -15,7 +15,7 @@
 using namespace std;
 
 class Event;
-constexpr auto MaxStations = 100;
+constexpr auto no_ofMaxStations = 100;
 
 class Company
 {
@@ -46,7 +46,7 @@ class Company
 	// new lists starts from here 
 	Time Timer;
 	Queue<Event*> EventList;
-	Stations stationArray[MaxStations];
+	Stations stationArray[no_ofMaxStations];
 
 	Queue<Passengers*> Completed; // passengers completed list
 

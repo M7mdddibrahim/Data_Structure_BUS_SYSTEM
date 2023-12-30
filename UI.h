@@ -26,7 +26,7 @@ public:
 	void PrintTime(Time T);
 	void PrintStation(int station);
 	int getStation();
-	void PrintPassengers(Queue<Passengers*> WNPFW, Queue<Passengers*> WNPBW, Queue<Passengers*> WWPFW, Queue<Passengers*> WWPBW, PriorityQueue<Passengers*> WSPFW, PriorityQueue<Passengers*> WSPBW);
+	void PrintPassengers(Queue<Passengers*>& WNPFW, Queue<Passengers*>& WNPBW, Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, PriorityQueue<Passengers*>& WSPFW, PriorityQueue<Passengers*>& WSPBW);
 	void PrintBuses(List<Buses> MBus, List<Buses>WBus);
 	void PrintLine();
 	void PrintFinishedPass(Queue<Passengers*> Completed);
