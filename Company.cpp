@@ -60,23 +60,6 @@ void Company::simulation()
 
 }
 
-//bool Company::Leave_List(List<Passengers>current)
-//{
-//	Passengers p;
-//	for (int i = 0; i < current.getCount(); i++)
-//	{
-//		Node<Passengers>* temp = current.getHead();
-//		if ((temp->GetData().getSStaion() == current_station) && (timerH * 60 + timerM) == temp->GetData().getAT())
-//		{
-//			p = temp->GetData();
-//			current.DeleteNode(p);
-//			Completed.Enqueue(p);
-//			return (true);
-//		}
-//		temp = temp->GetNext();
-//	}
-//	return false;
-//}
 
 void Company::addPassenger(Passengers* P)
 {
@@ -85,9 +68,6 @@ void Company::addPassenger(Passengers* P)
 
 void Company::Leave_Passenger(int STARTS, int id)
 {
-	Stations* p = &stationArray[STARTS];
-	Queue<Passengers*> x = p->getNormalPF();
-	Queue<Passengers*> y = p->getNormalPB();
 
 	if (stationArray[STARTS].RemovePassenger(stationArray[STARTS].getNormalPF(), id))
 	{
@@ -98,30 +78,6 @@ void Company::Leave_Passenger(int STARTS, int id)
 	{
 		return;
 	}
-	/*Passengers P;
-	for (int i = 0; i < NPF.getCount(); i++)
-	{
-		Node<Passengers>* temp = NPF.getHead();
-		if (temp->GetData().getID() == id)
-		{
-			P = temp->GetData();
-			NPF.DeleteNode(P);
-			return true;
-		}
-		temp = temp->GetNext();
-	}
-	for (int i = 0; i < NPB.getCount(); i++)
-	{
-		Node<Passengers>* t = NPB.getHead();
-		if (t->GetData().getID() == id)
-		{
-			P = t->GetData();
-			NPB.DeleteNode(P);
-			return true;
-		}
-		t = t->GetNext();
-	}
-	return false;*/
 
 }
 
@@ -184,14 +140,6 @@ void Company::Next_station()
 }
 
 
-//int Company::timeConverter(ifstream& input)
-//{
-//	input >> hour;
-//	input.ignore();
-//	input >> min;
-//	min += hour * 60;
-//	return min;
-//}
 void Company::timeConverter(ifstream& input)
 {
 	input >> hour;
@@ -282,47 +230,14 @@ void Company::loadFile()
 					input >> hour >> H >> min;
 					time.SetHours(hour);
 					time.SetMin(min);
-					//P->setAT(time);
-					//P->setTyp(Pass_type);
 					input >> ID >> SStation >> EStation;
-					/*int i = ID;
-					P->setID(ID);
-					P->setSStaion(SStation);
-					P->setEStaion(EStation);
-					P->setPassengerDir();
-					Dir = P->getPassengerDir();*/
-					//stationArray[i].AddPassengers(P);
 					ArrivalEvent* PassengerArrived = new ArrivalEvent(Pass_type, SStation, EStation, time, ID);
-
 					EventList.Enqueue(PassengerArrived);
-					/*if (Dir == "FWD")
-					{
-					}
-					else if (Dir == "BCK")
-					{
-						S.AddPassengers(P);
-					}*/
+
 
 				}
 				if (Pass_type == "WP")
 				{
-					//timeConverter(input);
-					////P->setAT(time);
-					//P->setTyp(Pass_type);
-					//input >> ID >> SStation >> EStation;
-					//P->setID(ID);
-					//P->setSStaion(SStation);
-					//P->setEStaion(EStation);
-					//P->setPassengerDir();
-					//Dir = P->getPassengerDir();
-					//S.AddPassengers(P);
-					/*if (Dir == "FWD")
-					{
-					}
-					else if (Dir == "BCK")
-					{
-						S.AddPassengers(P);
-					}*/
 					char H;
 					input >> hour >> H >> min;
 					time.SetHours(hour);
@@ -333,27 +248,6 @@ void Company::loadFile()
 				}
 				if (Pass_type == "SP")
 				{
-					//timeConverter(input);
-					////Timer.SetHours();
-					////P->setAT(time);
-					//P->setTyp(Pass_type);
-					//input >> ID >> SStation >> EStation;
-					//P->setID(ID);
-					//P->setEStaion(EStation);
-					//P->setSStaion(SStation);
-					//input >> Special_Type;
-					//P->setSPtyp(Special_Type);
-					//P->setPassengerDir();
-					//Dir = P->getPassengerDir();
-					//S.AddPassengers(P);
-					/*if (Dir == "FWD")
-					{
-					}
-					else if (Dir == "BCK")
-					{
-						S.AddPassengers(P);
-					}*/
-					/*continue;*/
 					char H;
 					input >> hour >> H >> min;
 					time.SetHours(hour);
@@ -380,8 +274,6 @@ void Company::loadFile()
 				Leave_Passenger( SStation, P->getID());*/
 				cout << ID;
 				LeaveEvent* PassengereLeaving = new LeaveEvent(time, ID, SStation);
-
-				Leave_Passenger(SStation, ID);
 				EventList.Enqueue(PassengereLeaving);
 			}
 		}
@@ -389,8 +281,6 @@ void Company::loadFile()
 	}
 
 }
-
-
 void Company::output()
 {
 	Stations S;

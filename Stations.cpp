@@ -163,7 +163,7 @@ PriorityQueue<Passengers*>& Stations::getSpecialPB()
 }
 
 
-bool Stations::RemovePassenger(Queue<Passengers*>&p, int id)
+bool Stations::RemovePassenger(Queue<Passengers*>& p, int id)
 {
 	bool x = false;
 	Queue<Passengers*> Temp;
