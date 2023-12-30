@@ -6,6 +6,17 @@ Event::Event()
     STARTS = 0;
 }
 
+Time Event::getTime()
+{
+    return time;
+}
+
+int Event::getStartS()
+{
+    return STARTS;
+}
+
+
 //void Event::set_Event_type(char e)
 //{
 //    event_type = e;

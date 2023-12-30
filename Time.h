@@ -23,6 +23,7 @@ public:
 	void IncrementHour();
 	void IncrementMin();
 	void MoveTime(int mm);
+	bool operator==(const Time& other) const;
 	~Time();
 
 

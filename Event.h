@@ -30,6 +30,8 @@ public:
     char get_EventType();
     virtual void excute(Company* C) = 0;
     int convertToTimeStep(int hours, int minutes);
+    Time getTime();
+    int getStartS();
     /*int convertToTimeStep(int hours, int minutes);
 >>>>>>> Stashed changes
     int main();

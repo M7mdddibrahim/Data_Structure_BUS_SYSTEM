@@ -58,6 +58,10 @@ void Time::MoveTime(int mm)
 		min = min - ((min / 60) * 60);
 	}
 }
+bool Time::operator==(const Time& other) const {
+	return (hours == other.hours && min == other.min);
+}
+
 Time::~Time()
 {
 	// Destructor

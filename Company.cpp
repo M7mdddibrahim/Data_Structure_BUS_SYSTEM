@@ -356,7 +356,7 @@ void Company::loadFile()
 					time.SetMin(min);
 					input >> ID >> SStation >> EStation;
 					input >> Special_Type;
-					ArrivalEvent* PassengerArrived = new ArrivalEvent(Special_Type,Pass_type, SStation, EStation, time, ID);
+					ArrivalEvent* PassengerArrived = new ArrivalEvent(Special_Type, Pass_type, SStation, EStation, time, ID);
 					EventList.Enqueue(PassengerArrived);
 
 				}
@@ -380,11 +380,7 @@ void Company::loadFile()
 		}
 
 	}
-	Event* tempEvent;
-	while (!EventList.peek(tempEvent) && tempEvent->)
-	{
-		
-	}
+
 }
 
 
@@ -392,9 +388,15 @@ void Company::output()
 {
 	Stations S;
 	int i = 0;
-	while (current_station <= no_ofStations)
+	Event* TempE;
+
+
+	while (EventList.peek(TempE) && TempE->getTime() == Timer)
 	{
-		Queue<Passengers*> temp = stationArray[i].getNormalPF();
+		EventList.Dequeue(TempE);
+		i = TempE->getStartS();
+
+		TempE->excute(this);
 		ui->PrintTime(Timer);
 		ui->PrintStation(current_station);
 		ui->PrintPassengers(stationArray[i].getNormalPF(), stationArray[i].getNormalPB(), stationArray[i].getWheelPF(), stationArray[i].getWheelPB(), stationArray[i].getSpecialPF(), stationArray[i].getSpecialPB());
@@ -404,7 +406,8 @@ void Company::output()
 		Timer.IncrementMin();
 		Next_station();
 		randomleave();
+		delete TempE;
 		//output();
-		i++;
 	}
+
 }
