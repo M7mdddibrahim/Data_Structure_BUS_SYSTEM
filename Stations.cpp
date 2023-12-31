@@ -259,56 +259,107 @@ void Stations::changeBusStatus(int busId, Queue<Buses*>& FWBusList, Queue<Buses*
 }
 
 
-void Stations::MoveBusFromWaitingToMoving(int busId, Queue<Buses*> FWBusList, Queue<Buses*> BWBusList)
+
+void Stations::MoveBusFromWaitingToMoving(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList, Queue<Buses*>& MBMovingFW, Queue<Buses*>& MBMovingBW, Queue<Buses*>& WBMovingFW, Queue<Buses*>& WBMovingBW)
 {
 	// Use Queue for both forward and backward bus lists
 	Queue<Buses*> tempFWBusList;
 	Queue<Buses*> tempBWBusList;
 
-	Buses* currentBus = nullptr;
+	Buses* currentBusFw = nullptr;
+	Buses* currentBusBw = nullptr;
+	Buses* tempBus = nullptr;
 
 	// Search in the forward bus list
 	while (!FWBusList.IsEmpty())
 	{
-		Buses* tempBus = nullptr;
+
 		FWBusList.Dequeue(tempBus);
 
 		if (tempBus->GetID() == busId)
 		{
-			currentBus = tempBus;
+			currentBusFw = tempBus;
 			tempFWBusList.Enqueue(tempBus);
 			break;
 		}
 
-		tempFWBusList.Enqueue(tempBus); // Enqueue the bus back to the original list
+		tempFWBusList.Enqueue(tempBus);
 	}
 
 	// Search in the backward bus list if not found in the forward list
-	if (currentBus == nullptr)
+	if (currentBusFw == nullptr)
 	{
 		while (!tempBWBusList.IsEmpty())
 		{
-			Buses* tempBus = nullptr;
+
 			BWBusList.Dequeue(tempBus);
 
 			if (tempBus->GetID() == busId)
 			{
-				currentBus = tempBus;
+				currentBusBw = tempBus;
 				tempBWBusList.Enqueue(tempBus);
 				break;
 			}
 
-			tempBWBusList.Enqueue(tempBus); // Enqueue the bus back to the original list
+			tempBWBusList.Enqueue(tempBus);
 		}
 	}
+	// ana 3mlt search w gbt el bus fy pointer done
+	int MaxBusCapacity = 100;
+	if (currentBusFw != nullptr)
+	{
 
-	if (currentBus != nullptr)
-	{
-		currentBus->MoveFromWaitingToMoving();
+		if (currentBusFw->Get_MBusCapacity() == MaxBusCapacity) {
+			if (currentBusFw->Getbustype() == MBUS) {
+
+				FWBusList.Dequeue(currentBusFw);  // 3mlt check lw mixed w forward w shelto mn el wait o 7teto fy el move
+				MBMovingFW.Enqueue(currentBusFw);
+			}
+			else if (currentBusFw->Getbustype() == WBUS) {
+
+				FWBusList.Dequeue(currentBusFw);
+				WBMovingFW.Enqueue(currentBusFw);
+
+			}
+
+		}
+		if (WNPFW.IsEmpty()) {
+			// list el waiting el NP etmlt bs le bus msh mlyaan mfesh 7d tany lsa hyrkb FWBUS
+			FWBusList.Dequeue(currentBusFw);
+			MBMovingFW.Enqueue(currentBusFw);
+
+		}
+		if (WWPFW.IsEmpty()) {
+			// list el waiting el WP etmlt bs le bus msh mlyaan mfesh 7d tany lsa hyrkb FWbus
+			FWBusList.Dequeue(currentBusFw);
+			WBMovingFW.Enqueue(currentBusFw);
+
+		}
 	}
-	else
+	else if (currentBusBw != nullptr)
 	{
-		cout << "Bus " << busId << " not found at the station." << endl;
+		if (currentBusBw->Get_WBusCapacity() == MaxBusCapacity) {
+			if (currentBusBw->Getbustype() == MBUS) {
+				BWBusList.Dequeue(currentBusBw);
+				MBMovingBW.Enqueue(currentBusBw);
+			}
+
+			else if (currentBusBw->Getbustype() == WBUS) {
+				BWBusList.Dequeue(currentBusBw);
+				WBMovingBW.Enqueue(currentBusBw);
+			}
+			if (!WNPBW.IsEmpty()) {
+				// list el waiting el NP etmlt bs le bus msh mlyaan mfesh 7d tany lsa hyrkb BW bus
+				BWBusList.Dequeue(currentBusBw);
+				MBMovingBW.Enqueue(currentBusBw);
+			}
+			if (!WWPBW.IsEmpty()) {
+				// list el waiting el WP etmlt bs le bus msh mlyaan mfesh 7d tany lsa hyrkb BW bus
+				BWBusList.Dequeue(currentBusBw);
+				WBMovingBW.Enqueue(currentBusBw);
+
+			}
+		}
 	}
 
 	while (!tempBWBusList.IsEmpty()) {
@@ -322,10 +373,6 @@ void Stations::MoveBusFromWaitingToMoving(int busId, Queue<Buses*> FWBusList, Qu
 		tempFWBusList.Dequeue(tempBus);
 		FWBusList.Enqueue(tempBus);
 	}
-}
-
-void Stations::releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses)
-{
 }
 
 void Stations::BoardingWP(Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList)
@@ -372,7 +419,7 @@ void Stations::BoardingWP(Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, 
 	// flag = false
 }
 
-void Stations::FinishPass( Queue<Passengers*>& Completed)
+void Stations::FinishPass(Queue<Passengers*>& Completed)
 {
 	Buses* B;
 	Passengers* P;
@@ -381,7 +428,7 @@ void Stations::FinishPass( Queue<Passengers*>& Completed)
 	while (!(FWBusList.IsEmpty()))
 	{
 		FWBusList.Dequeue(B);
-		while (B->firstpassenger(P) && m<60 )
+		while (B->firstpassenger(P) && m < 60)
 		{
 			if (P->getEStaion() == B->GetCurrBusStation())
 			{

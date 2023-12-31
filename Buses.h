@@ -36,6 +36,7 @@ private:
 	//Time TSIM; // Total Simulation Time
 	PriorityQueue<Passengers*> MBus;
 	PriorityQueue<Passengers*> WBus;
+	int BusArrivalTime;
 	int status;  // 0 for moving, 1 for waiting
 
 public:
@@ -78,6 +79,9 @@ public:
 	void Set_BusType(BusType bustype)
 	{
 		BT = bustype;
+	}
+	void Set_BusArrivalTime(int BusAT) {
+		BusArrivalTime = BusAT;
 	}
 	void Set_TotalNumberofBuses(int WBCount, int MBCount)
 	{
@@ -140,6 +144,9 @@ public:
 	BusType Getbustype()
 	{
 		return BT;
+	}
+	int GetBusArrivalTime() {
+		return BusArrivalTime;
 	}
 	int Get_WBusCapacity()
 	{

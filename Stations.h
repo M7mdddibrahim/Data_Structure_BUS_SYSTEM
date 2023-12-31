@@ -64,8 +64,7 @@ public:
 	void AddPassengers(Passengers* P);
 	bool RemovePassenger(Queue<Passengers*>&p, int id);
 	void changeBusStatus(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList); // from moving to waiting 
-	void MoveBusFromWaitingToMoving(int busId, Queue<Buses*> FWBusList, Queue<Buses*> BWBusList); // from waiting to moving 
-	void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses);
+	void MoveBusFromWaitingToMoving(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList, Queue<Buses*>& MBMovingFW, Queue<Buses*>& MBMovingBW, Queue<Buses*>& WBMovingFW, Queue<Buses*>& WBMovingBW); // from waiting to moving 
 	void BoardingWP(Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList);
 	//void busWaitingToMoving(Queue<Buses*> FWBusList, Queue<Buses*> BWBusListQueue<Buses*> BWBusList);
 	void FinishPass( Queue<Passengers*>& Completed);
