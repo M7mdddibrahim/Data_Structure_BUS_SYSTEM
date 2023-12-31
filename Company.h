@@ -69,6 +69,7 @@ public:
 	void Next_station();
 	void timeConverter(ifstream& inputFile);
 	void releaseBusFromStationZero(Queue<Buses*> MGB, Queue<Buses*> WGB);
+	void BusMovingToWaiting(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList);
 	void BoardingWPassengers();
 	void AddPassToFinishList(Queue<Passengers*>& Completed);
 

@@ -180,6 +180,186 @@ void Company::releaseBusFromStationZero(Queue<Buses*> MGB, Queue<Buses*> WGB)
 	}
 }
 
+void Company::BusMovingToWaiting(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList)
+{
+
+	// Use Queue for both forward and backward bus lists
+	Queue<Buses*> tempWBMovingFW;
+	Queue<Buses*> tempWBMovingBW;
+	Queue<Buses*> tempMBMovingFW;
+	Queue<Buses*> tempMBMovingBW;
+	Buses* currentBusFw2 = nullptr;
+	Buses* currentBusBW2 = nullptr;
+	Buses* currentBusFw = nullptr;
+	Buses* currentBusBW = nullptr;
+	Buses* tempBus = nullptr;
+
+	// Search in the forward bus list
+	while (!MBMovingFW.IsEmpty())
+	{
+		
+		MBMovingFW.Dequeue(tempBus);
+
+		if (tempBus->GetID() == busId)
+		{
+			currentBusFw = tempBus;
+			tempMBMovingFW.Enqueue(tempBus);
+			break;
+		}
+
+		tempMBMovingFW.Enqueue(tempBus); // Enqueue the bus back to the original list
+	}
+
+	// Search in the backward bus list if not found in the forward list
+	if (currentBusFw == nullptr)
+	{
+		while (!tempMBMovingBW.IsEmpty())
+		{
+			
+			MBMovingBW.Dequeue(tempBus);
+
+			if (tempBus->GetID() == busId)
+			{
+				currentBusBW = tempBus;
+				tempMBMovingBW.Enqueue(tempBus);
+				break;
+			}
+
+			MBMovingBW.Enqueue(tempBus); // Enqueue the bus back to the original list
+		}
+	}
+	int currentHours = Timer.getHours();
+	int currentMin = Timer.getMin();
+	int totalTimeinMinutes = (currentHours * 60) + currentMin;
+	if (currentBusFw != nullptr)
+	{
+		
+		currentBusFw->GetnextBusStation();
+		if (totalTimeinMinutes== currentBusFw->GetBusArrivalTime() ) {
+			if (currentBusFw->Getbustype() == MBUS) {
+				MBMovingFW.Dequeue(currentBusFw);
+				FWBusList.Enqueue(currentBusFw);
+
+			}
+			
+
+
+	}      
+
+
+	}
+	else if (currentBusBW!=nullptr)
+	{
+		currentBusBW->GetnextBusStation();
+		if (totalTimeinMinutes == currentBusBW->GetBusArrivalTime()) {
+			if (currentBusBW->Getbustype() == MBUS) {
+				MBMovingBW.Dequeue(currentBusBW);
+				BWBusList.Enqueue(currentBusBW);
+
+			}
+
+
+
+		}
+		
+	}
+
+	while (!tempMBMovingBW.IsEmpty()) {
+		
+		tempMBMovingBW.Dequeue(tempBus);
+		MBMovingBW.Enqueue(tempBus);
+	}
+
+	while (!tempMBMovingFW.IsEmpty()) {
+		
+		tempMBMovingFW.Dequeue(tempBus);
+		MBMovingFW.Enqueue(tempBus);
+	}
+
+
+	// Search in the forward bus list
+	while (!WBMovingFW.IsEmpty())
+	{
+		
+		WBMovingFW.Dequeue(tempBus);
+
+		if (tempBus->GetID() == busId)
+		{
+			currentBusFw2 = tempBus;
+			tempWBMovingFW.Enqueue(tempBus);
+			break;
+		}
+
+		tempWBMovingFW.Enqueue(tempBus); // Enqueue the bus back to the original list
+	}
+
+	// Search in the backward bus list if not found in the forward list
+	if (currentBusFw2 == nullptr)
+	{
+		while (!tempWBMovingBW.IsEmpty())
+		{
+			BWBusList.Dequeue(tempBus);
+
+			if (tempBus->GetID() == busId)
+			{
+				currentBusBW2 = tempBus;
+				tempWBMovingBW.Enqueue(tempBus);
+				break;
+			}
+
+			tempWBMovingBW.Enqueue(tempBus); // Enqueue the bus back to the original list
+		}
+	}
+
+	if (currentBusFw2 != nullptr)
+	{
+		
+		currentBusFw2->GetnextBusStation();
+		if (totalTimeinMinutes== currentBusFw2->GetBusArrivalTime() ) {
+			if (currentBusFw2->Getbustype() == WBUS) {
+				WBMovingFW.Dequeue(currentBusFw2);
+				FWBusList.Enqueue(currentBusFw2);
+
+			}
+			
+
+
+	}      
+
+
+	}
+	else if (currentBusBW2!=nullptr)
+	{
+		currentBusBW2->GetnextBusStation();
+		if (totalTimeinMinutes == currentBusBW->GetBusArrivalTime()) {
+			if (currentBusBW2->Getbustype() == WBUS) {
+				WBMovingBW.Dequeue(currentBusBW2);
+				BWBusList.Enqueue(currentBusBW2);
+
+			}
+
+
+
+		}
+		
+	}
+	while (!tempWBMovingBW.IsEmpty()) {
+		
+		tempWBMovingBW.Dequeue(tempBus);
+		WBMovingBW.Enqueue(tempBus);
+	}
+
+	while (!tempWBMovingFW.IsEmpty()) {
+		
+		tempWBMovingBW.Dequeue(tempBus);
+		WBMovingBW.Enqueue(tempBus);
+	}
+
+
+
+
+}
+
 void Company::BoardingWPassengers()
 {
 	for (int i = 0; i < no_ofStations; i++)
