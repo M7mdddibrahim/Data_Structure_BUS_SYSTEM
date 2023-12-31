@@ -188,6 +188,13 @@ void Company::BoardingWPassengers()
 	}
 }
 
+void Company::AddPassToFinishList(Queue<Passengers*>& Completed)
+{
+	Stations s;
+	s.FinishPass(Completed);
+	Completed.Display();
+}
+
 void Company::loadFile()
 {
 	string Filename = "input.txt";
@@ -281,6 +288,23 @@ void Company::loadFile()
 	}
 
 }
+void Company::Outputfile()
+{
+	Passengers P;
+	Buses B;
+	string Filename = "output.txt";
+	ofstream output;
+	output.open(Filename, ios::out);
+	output << "FT" << setw(6) << "ID" << setw(6) << "AT" << setw(6) << "WT" << setw(6) << "TT" << endl;
+	output << "passengers: " << endl;
+	output << "passenger Avg Wait time= " << endl;
+	output << "passenger Avg trip time= " << endl;
+	output << "Auto-promoted passengers: " << endl;
+	output << "buses: " << B.Get_TotalNumberofBuses() << "[ WBus: " << B.Get_WBus_Count() << ", MBus: " << B.Get_MBus_Count() << endl;
+	output << "Avg Busy time=  " << endl;
+	output << "Avg utilization=  " << endl;
+
+}
 void Company::output()
 {
 	Stations S;
@@ -298,10 +322,11 @@ void Company::output()
 			ui->PrintPassengers(stationArray[TempE->getStartS()].getNormalPF(), stationArray[TempE->getStartS()].getNormalPB(), stationArray[TempE->getStartS()].getWheelPF(), stationArray[TempE->getStartS()].getWheelPB(), stationArray[TempE->getStartS()].getSpecialPF(), stationArray[TempE->getStartS()].getSpecialPB());
 			ui->PrintBuses(MBus, WBus);
 			ui->PrintLine();
+			//randomleave();
+			AddPassToFinishList(Completed);
 			ui->PrintFinishedPass(Completed);
 			Timer.IncrementMin();
 			Next_station();
-			//randomleave();
 			EventList.Dequeue(TempE);
 			delete TempE;
 			//output();
@@ -314,10 +339,12 @@ void Company::output()
 			ui->PrintPassengers(stationArray[current_station].getNormalPF(), stationArray[current_station].getNormalPB(), stationArray[current_station].getWheelPF(), stationArray[current_station].getWheelPB(), stationArray[current_station].getSpecialPF(), stationArray[current_station].getSpecialPB());
 			ui->PrintBuses(MBus, WBus);
 			ui->PrintLine();
+			randomleave();
+			AddPassToFinishList(Completed);
 			ui->PrintFinishedPass(Completed);
 			Timer.IncrementMin();
 			Next_station();
 		}
 	}
-
+	Outputfile();
 }

@@ -97,5 +97,6 @@
     <Text Include="input.txt">
       <Filter>Header Files</Filter>
     </Text>
+    <Text Include="output.txt" />
   </ItemGroup>
 </Project>

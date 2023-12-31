@@ -31,11 +31,11 @@ private:
 	int ID;
 	string Direction;  // Direction of the Bus
 	//Time Mt; // Move Time
-	//Passengers TDC; // Total Passengers Transported by the Bus
-	//Time TBT; // Total Busy Time for this Bus
+	int TDC; // Total Passengers Transported by the Bus
+	int TBT; // Total Busy Time for this Bus
 	//Time TSIM; // Total Simulation Time
-	PriorityQueue<Passengers> MBus;
-	PriorityQueue<Passengers> WBus;
+	PriorityQueue<Passengers*> MBus;
+	PriorityQueue<Passengers*> WBus;
 	int status;  // 0 for moving, 1 for waiting
 
 public:
@@ -124,6 +124,18 @@ public:
 	{
 		nextBusStation = nextStation;
 	}
+	void SetTotalPassengers(int TP)
+	{
+		TDC = TP;
+	}
+	void SetFinishedJourneys(int Journey)
+	{
+		J = Journey;
+	}
+	void SetBusyTime(int T)
+	{
+		TBT = T;
+	}
 	// Getters
 	BusType Getbustype()
 	{
@@ -185,87 +197,67 @@ public:
 	{
 		return nextBusStation;
 	}
-	//Time GetMoveTime();
-	//Time GetBusyTime();
-	//Time GetSimulationTime();
+	int getTotalPassengers()
+	{
+		return TDC;
+	}
+	int GetBusyTime()
+	{
+		return TBT;
+	}
 
 
 	//// Member Functions
-	//float BusUtilization()
-	//{
-	//	int j = GetFinishedTrips();
-	//	if (BT == WBUS)
-	//	{
-	//		if (j != 0)
-	//		{
-	//			BusUtil = (TDC / ((WBC * j) * (TBT / TSIM)));
-	//		}
-	//		else if (j == 0)
-	//		{
-	//			BusUtil = 0;
-	//		}
-	//	}
-	//	else if (BT == MBUS)
-	//	{
-	//		if (j != 0)
-	//		{
-	//			BusUtil = (TDC / ((MBC * j) * (TBT / TSIM)));
-	//		}
-	//		else if (j == 0)
-	//		{
-	//			BusUtil = 0;
-	//		}
-	//	}
-	//	return (BusUtil * 100);
-	//}
-
-	/*void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses) {
-
-		while (true) {
-			// Get the current time
-			auto currentTime = std::chrono::system_clock::now();
-
-			// Extract minutes from the current time
-			auto minutes = std::chrono::duration_cast<std::chrono::minutes>(currentTime.time_since_epoch()).count() % 60;
-
-			// Check if it's been 15 minutes since the last bus release
-			if (minutes % 15 == 0) {
-				// Print the bus release message
-				auto hours = std::chrono::duration_cast<std::chrono::hours>(currentTime.time_since_epoch()).count() % 24;
-				std::cout << "Bus released from Station #0 at " << hours << ":" << minutes << std::endl;
-
-				// Add your bus release logic here  Abdelrahman thinking
-				if (stationZero.IsEmpty()) {
-					cout << "No buses available at station zero." << endl;
-					return;
-				}
-
-				int busNumber;
-				stationZero.Dequeue(busNumber);  // Remove the first bus from the queue
-				buses.insertNode(busNumber);     // Add the released bus to the list
-
-				cout << "Bus " << busNumber << " released from station zero and added to buses list." << endl;
+	float BusUtilization()
+	{
+		int TSIM = 18 * 60;
+		int j = GetFinishedTrips();
+		if (BT == WBUS)
+		{
+			if (j != 0)
+			{
+				BusUtil = (TDC / ((WBC * j) * (TBT / TSIM)));
 			}
-
-				// Delay for 1 second
-				std::this_thread::sleep_for(std::chrono::seconds(1));
+			else if (j == 0)
+			{
+				BusUtil = 0;
 			}
+		}
+		else if (BT == MBUS)
+		{
+			if (j != 0)
+			{
+				BusUtil = (TDC / ((MBC * j) * (TBT / TSIM)));
+			}
+			else if (j == 0)
+			{
+				BusUtil = 0;
+			}
+		}
+		return (BusUtil * 100);
+	}
 
-			// Delay for 1 second before checking the time again
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-		}*/
-
-
+	bool firstpassenger(Passengers *& P)
+	{
+		if (P->getTyp() == "SP" || P->getTyp() == "NP")
+		{
+			return MBus.Peek(P);
+		}
+		else if (P->getTyp() == "WP")
+		{
+			return WBus.Peek(P);
+		}
+	}
 	void addPassenger(Passengers*& P)
 	{
 		int Prio = abs(P->getEStaion() - P->getSStaion());
 		if (P->getTyp() == "SP" || P->getTyp() == "NP")
 		{
-			MBus.Enqueue(*P, Prio);
+			MBus.Enqueue(P, Prio);
 		}
 		else if (P->getTyp() == "WP")
 		{
-			WBus.Enqueue(*P, Prio);
+			WBus.Enqueue(P, Prio);
 		}
 	}
 
@@ -273,13 +265,14 @@ public:
 	{
 		if (P->getTyp() == "SP" || P->getTyp() == "NP")
 		{
-			MBus.Dequeue(*P);
+			MBus.Dequeue(P);
 		}
 		else if (P->getTyp() == "WP")
 		{
-			WBus.Dequeue(*P);
+			WBus.Dequeue(P);
 		}
 	}
+
 
 	void MoveFromWaitingToMoving()  // used in Phase 2 function Abdelrahman was here   Need more conditions 
 	{

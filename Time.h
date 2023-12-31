@@ -18,11 +18,12 @@ public:
 	// Getters
 	int getHours();
 	int getMin();
-
+	int getArrivalTime();
 	// Function
 	void IncrementHour();
 	void IncrementMin();
 	void MoveTime(int mm);
+
 	bool operator==(const Time& other) const;
 	bool operator!=(const Time& other) const;
 	~Time();

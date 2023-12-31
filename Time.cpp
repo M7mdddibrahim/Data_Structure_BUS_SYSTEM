@@ -29,6 +29,11 @@ int Time::getMin()
 	return min;
 }
 
+int Time::getArrivalTime()
+{
+	return 0;
+}
+
 
 void Time::IncrementHour()
 {

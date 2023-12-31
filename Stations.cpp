@@ -188,7 +188,7 @@ bool Stations::RemovePassenger(Queue<Passengers*>& p, int id)
 }
 
 
-void Stations::changeBusStatus(int busId, Queue<Buses*> &FWBusList, Queue<Buses*> &BWBusList)
+void Stations::changeBusStatus(int busId, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList)
 {
 	// Use Queue for both forward and backward bus lists
 	Queue<Buses*> tempFWBusList;
@@ -242,7 +242,7 @@ void Stations::changeBusStatus(int busId, Queue<Buses*> &FWBusList, Queue<Buses*
 	{
 		cout << "Bus " << busId << " not found at the station." << endl;
 	}
-	
+
 	while (!tempBWBusList.IsEmpty()) {
 		Buses* tempBus = nullptr;
 		tempBWBusList.Dequeue(tempBus);
@@ -329,44 +329,162 @@ void Stations::releaseBusFromStationZero(Queue<int>& stationZero, List<int>& bus
 }
 
 void Stations::BoardingWP(Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList)
-{	
-	// keda hydno 3ala awl wa7d fe el list wala ana bythy2ly
+{
 	Passengers* TempPFW;
 	Passengers* TempPBW;
 	Buses* TempFWBus;
 	Buses* TempBWBus;
-	while (!WWPFW.IsEmpty())
-	{
-		if (true)
-		{
+	int onoffcounter = 0;
+	//int onoffcounterBW = 0;
+	Time* T = new Time; // msh mot2kd etlakn
 
-		}
+	while (!WWPFW.IsEmpty() && onoffcounter <= 60)
+	{
 		WWPFW.peek(TempPFW);
 		FWBusList.peek(TempFWBus);
-		if (TempPFW->getSStaion() == TempFWBus->GetCurrBusStation()) 
+		if (TempPFW->getSStaion() == TempFWBus->GetCurrBusStation())
 		{
 			WWPFW.Dequeue(TempPFW);
 			TempFWBus->addPassenger(TempPFW);
+			onoffcounter = onoffcounter + TempPFW->getOn_OffTime();
 		}
 		else
 		{
 			WWPFW.Dequeue(TempPFW);
 		}
 	}
-	while (!WWPBW.IsEmpty())
+	while (!WWPBW.IsEmpty() && onoffcounter <= 60)
 	{
+		// flag = True;
 		WWPBW.peek(TempPBW);
 		BWBusList.peek(TempBWBus);
 		if (TempPBW->getSStaion() == TempBWBus->GetCurrBusStation())
 		{
+			WWPBW.Dequeue(TempPFW);
 			TempBWBus->addPassenger(TempPBW);
+			onoffcounter = onoffcounter + TempPFW->getOn_OffTime();
 		}
 		else
 		{
 			WWPBW.Dequeue(TempPBW);
 		}
 	}
+	// flag = false
 }
+
+void Stations::FinishPass( Queue<Passengers*>& Completed)
+{
+	Buses* B;
+	Passengers* P;
+	int m = 0;
+	int m1 = 0;
+	while (!(FWBusList.IsEmpty()))
+	{
+		FWBusList.Dequeue(B);
+		while (B->firstpassenger(P) && m<60 )
+		{
+			if (P->getEStaion() == B->GetCurrBusStation())
+			{
+				B->removePassenger(P);
+				Completed.Enqueue(P);
+				m = m + P->getOn_OffTime();
+			}
+			else
+			{
+				break;
+			}
+		}
+
+	}
+	while (!(BWBusList.IsEmpty()))
+	{
+		BWBusList.Dequeue(B);
+		while (B->firstpassenger(P) && m1 < 60)
+		{
+			if (P->getEStaion() == B->GetCurrBusStation())
+			{
+				B->removePassenger(P);
+				Completed.Enqueue(P);
+				m1 = m1 + P->getOn_OffTime();
+			}
+			else
+			{
+				break;
+			}
+		}
+
+	}
+
+}
+void Stations::BoardingSPNP(PriorityQueue<Passengers*>& WSPFW, PriorityQueue<Passengers*>& WSPBW, Queue<Passengers*>& WNPFW, Queue<Passengers*>& WNPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList)
+{
+	Passengers* TempPFW;
+	Passengers* TempPBW;
+	Buses* TempFWBus;
+	Buses* TempBWBus;
+	int onoffcounter = 0;
+	while (!WSPFW.IsEmpty() && onoffcounter <= 60)
+	{
+		WSPFW.Peek(TempPFW);
+		FWBusList.peek(TempFWBus);
+		if (TempPFW->getSStaion() == TempFWBus->GetCurrBusStation())
+		{
+			WSPFW.Dequeue(TempPFW);
+			TempFWBus->addPassenger(TempPFW);
+			onoffcounter = onoffcounter + TempPFW->getOn_OffTime();
+		}
+		else
+		{
+			WSPFW.Dequeue(TempPFW);
+		}
+	}
+	while (!WNPFW.IsEmpty() && onoffcounter <= 60)
+	{
+		WNPFW.peek(TempPFW);
+		FWBusList.peek(TempFWBus);
+		if (TempPFW->getSStaion() == TempFWBus->GetCurrBusStation())
+		{
+			WNPFW.Dequeue(TempPFW);
+			TempFWBus->addPassenger(TempPFW);
+			onoffcounter = onoffcounter + TempPFW->getOn_OffTime();
+		}
+		else
+		{
+			WNPFW.Dequeue(TempPFW);
+		}
+	}
+	while (!WSPBW.IsEmpty() && onoffcounter <= 60)
+	{
+		WSPBW.Peek(TempPBW);
+		BWBusList.peek(TempBWBus);
+		if (TempPBW->getSStaion() == TempBWBus->GetCurrBusStation())
+		{
+			WSPBW.Dequeue(TempPFW);
+			TempBWBus->addPassenger(TempPBW);
+			onoffcounter = onoffcounter + TempPFW->getOn_OffTime();
+		}
+		else
+		{
+			WSPBW.Dequeue(TempPBW);
+		}
+	}
+	while (!WNPBW.IsEmpty() && onoffcounter <= 60)
+	{
+		WNPBW.peek(TempPBW);
+		BWBusList.peek(TempBWBus);
+		if (TempPBW->getSStaion() == TempBWBus->GetCurrBusStation())
+		{
+			WNPBW.Dequeue(TempPFW);
+			TempBWBus->addPassenger(TempPBW);
+			onoffcounter = onoffcounter + TempPFW->getOn_OffTime();
+		}
+		else
+		{
+			WNPBW.Dequeue(TempPBW);
+		}
+	}
+}
+
 
 
 

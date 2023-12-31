@@ -10,7 +10,7 @@
 #include <iostream>
 using namespace std;
 
-
+class Company;
 class Stations
 {
 private:
@@ -23,6 +23,7 @@ private:
 	int StationId;
 	int BusId;
 	int TBS;    // Time Betweeen Stations
+	Company* C;
 	Queue<Buses*>Qbus;
 
 	// Passengers waiting lists
@@ -66,7 +67,8 @@ public:
 	void MoveBusFromWaitingToMoving(int busId, Queue<Buses*> FWBusList, Queue<Buses*> BWBusList); // from waiting to moving 
 	void releaseBusFromStationZero(Queue<int>& stationZero, List<int>& buses);
 	void BoardingWP(Queue<Passengers*>& WWPFW, Queue<Passengers*>& WWPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList);
-	void busWaitingToMoving(Queue<Buses*> FWBusList, Queue<Buses*> BWBusListQueue<Buses*> BWBusList)
-
+	//void busWaitingToMoving(Queue<Buses*> FWBusList, Queue<Buses*> BWBusListQueue<Buses*> BWBusList);
+	void FinishPass( Queue<Passengers*>& Completed);
+	void BoardingSPNP(PriorityQueue<Passengers*>& WSPFW, PriorityQueue<Passengers*>& WSPBW, Queue<Passengers*>& WNPFW, Queue<Passengers*>& WNPBW, Queue<Buses*>& FWBusList, Queue<Buses*>& BWBusList);
 };
 

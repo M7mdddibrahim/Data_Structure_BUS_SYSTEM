@@ -59,6 +59,7 @@ public:
 	Company();
 	void output();
 	void loadFile();
+	void Outputfile();
 	void simulation();
 	//bool Leave_List(List<Passengers>current);
 	void addPassenger(Passengers* P);
@@ -69,5 +70,6 @@ public:
 	void timeConverter(ifstream& inputFile);
 	void releaseBusFromStationZero(Queue<Buses*> MGB, Queue<Buses*> WGB);
 	void BoardingWPassengers();
+	void AddPassToFinishList(Queue<Passengers*>& Completed);
 
 };
